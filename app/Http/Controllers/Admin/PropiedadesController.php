@@ -29,8 +29,20 @@ class PropiedadesController extends Controller
     {
         $propiedad = null;
         $propietarios = Propietario::all();
-        $filePath = resource_path('json/ciudades.json');
-        $ciudades = json_decode(File::get($filePath), true);
+        //$filePath = resource_path('json/ciudades.json');
+        //$ciudades = json_decode(File::get($filePath), true);
+        // Cargar el archivo ciudades.json desde public/json/
+        $filePath = public_path('json/ciudades.json');
+
+        // Verificar si el archivo existe
+        if (File::exists($filePath)) {
+            $ciudades = json_decode(File::get($filePath), true);
+        } else {
+            // Manejar el caso en que el archivo no existe
+            $ciudades = []; // O cualquier valor por defecto que desees
+            // Puedes agregar un mensaje de error o una excepción aquí
+            // throw new Exception("El archivo ciudades.json no existe.");
+        }
         $tipoPropiedad = TipoPropiedad::all();
         $tipoTraspaso = TipoTraspaso::getTodo();
 
@@ -108,8 +120,20 @@ class PropiedadesController extends Controller
     {
         $propiedad = Propiedade::findOrFail($id);
         $propietarios = Propietario::all();
-        $filePath = resource_path('json/ciudades.json');
-        $ciudades = json_decode(File::get($filePath), true);
+        //$filePath = resource_path('json/ciudades.json');
+        //$ciudades = json_decode(File::get($filePath), true);
+        // Cargar el archivo ciudades.json desde public/json/
+        $filePath = public_path('json/ciudades.json');
+
+        // Verificar si el archivo existe
+        if (File::exists($filePath)) {
+            $ciudades = json_decode(File::get($filePath), true);
+        } else {
+            // Manejar el caso en que el archivo no existe
+            $ciudades = []; // O cualquier valor por defecto que desees
+            // Puedes agregar un mensaje de error o una excepción aquí
+            // throw new Exception("El archivo ciudades.json no existe.");
+        }
         $tipoPropiedad = TipoPropiedad::all();
         $tipoTraspaso = TipoTraspaso::getTodo();
 
