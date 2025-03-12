@@ -1,0 +1,65 @@
+{
+    "La Paz": {
+        "nombre": "La Paz",
+        "coordenadas": {
+            "latitud": -16.5,
+            "longitud": -68.15
+        }
+    },
+    "Chuquisaca": {
+        "nombre": "Sucre",
+        "coordenadas": {
+            "latitud": -19.03332,
+            "longitud": -65.26274
+        }
+    },
+    "Cochabamba": {
+        "nombre": "Cochabamba",
+        "coordenadas": {
+            "latitud": -17.3895,
+            "longitud": -66.1568
+        }
+    },
+    "Santa Cruz": {
+        "nombre": "Santa Cruz de la Sierra",
+        "coordenadas": {
+            "latitud": -17.78629,
+            "longitud": -63.18117
+        }
+    },
+    "Oruro": {
+        "nombre": "Oruro",
+        "coordenadas": {
+            "latitud": -17.98333,
+            "longitud": -67.15
+        }
+    },
+    "Potosí": {
+        "nombre": "Potosí",
+        "coordenadas": {
+            "latitud": -19.58361,
+            "longitud": -65.75306
+        }
+    },
+    "Tarija": {
+        "nombre": "Tarija",
+        "coordenadas": {
+            "latitud": -21.53549,
+            "longitud": -64.72956
+        }
+    },
+    "Pando": {
+        "nombre": "Cobija",
+        "coordenadas": {
+            "latitud": -11.03333,
+            "longitud": -68.76667
+        }
+    },
+    "Beni": {
+        "nombre": "Trinidad",
+        "coordenadas": {
+            "latitud": -14.83333,
+            "longitud": -64.9
+        }
+    }
+}

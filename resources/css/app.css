@@ -1,0 +1,195 @@
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../**/*.vue";
+
+@theme {
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+}
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* HOTSPOTS */
+.custom-hotspot {
+    width: 20px;
+    height: 20px;
+    background-color: black;
+    border-radius: 50%;
+    border: 3px solid white;
+}
+
+.property-slider-img {
+    width: 100%;
+    height: 550px;
+    /* Ajusta según lo que necesites */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.property-slider-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Cubre el div sin deformarse */
+    object-position: center;
+    /* Centra la imagen dentro del contenedor */
+}
+
+/* Miniaturas */
+.property-thumb-slider .swiper-slide {
+    width: 100%;
+    height: 140px;
+    /* Altura fija de miniaturas */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.property-thumb-slider .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Estilos para el contenedor de información */
+p.d-flex.flex-wrap {
+    font-size: 14px; /* Tamaño de fuente */
+    color: #666; /* Color del texto */
+    margin-bottom: 10px; /* Espaciado inferior */
+}
+
+/* Estilos para los iconos y texto */
+p.d-flex.flex-wrap span {
+    margin-right: 10px; /* Espaciado entre elementos */
+    margin-bottom: 5px; /* Espaciado inferior entre filas */
+}
+
+/* Estilos para los iconos */
+p.d-flex.flex-wrap span::before {
+    font-size: 18px; /* Tamaño del icono */
+    margin-right: 5px; /* Espaciado entre icono y texto */
+}
+
+/* Estilos para cada tipo de información */
+p.d-flex.flex-wrap span.mdi-home-city-outline {
+    color: #3498db; /* Color del icono de ambientes */
+}
+
+p.d-flex.flex-wrap span.mdi-toilet {
+    color: #e74c3c; /* Color del icono de baños */
+}
+
+p.d-flex.flex-wrap span.mdi-garage-open-variant {
+    color: #2ecc71; /* Color del icono de garaje */
+}
+
+p.d-flex.flex-wrap span.mdi-countertop {
+    color: #f1c40f; /* Color del icono de cocina */
+}
+
+p.d-flex.flex-wrap span.mdi-bed-king-outline {
+    color: #9b59b6; /* Color del icono de dormitorio */
+}
+
+p.d-flex.flex-wrap span.mdi-sofa-outline {
+    color: #1abc9c; /* Color del icono de sala */
+}
+.my_btn {
+    color: black; /* Cambia el color del texto a negro */
+    padding: 0.6rem 1.5rem;
+    border: 2px solid #365CF5;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    display: inline-block; /* Asegúrate de que el span tenga un tamaño */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+}
+
+.my_btn:hover {
+    background-color: #365CF5; /* Cambia el color de fondo */
+    color: white; /* Cambia el color del texto */
+}
+
+/* Estilos para botones de activar/inactivar */
+.btn-activar {
+    background-color: #34C759; /* Verde */
+    color: white;
+    border: none;
+    padding: 2px 6px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-activar:hover {
+    background-color: #2ecc71; /* Verde más oscuro al pasar el mouse */
+}
+
+.btn-inactivar {
+    background-color: #DC3545; /* Rojo */
+    color: white;
+    border: none;
+    padding: 2px 6px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-inactivar:hover {
+    background-color: #c82333; /* Rojo más oscuro al pasar el mouse */
+}
+
+.select2-container--default .select2-selection--single {
+    background-color: #fff;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 34px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 34px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 20px;
+}
