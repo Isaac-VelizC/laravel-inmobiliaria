@@ -26,6 +26,7 @@
                             @isset($group)
                                 @method('PUT')
                             @endisset
+                            <input type="hidden" id="propiedad" name="propiedad" value="{{ $propiedadId }}">
                             <div class="row g-4">
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-floating form-floating-outline">
@@ -75,25 +76,10 @@
                                         @error('agente') <span class="invalid-feedback">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="form-floating form-floating-outline">
-                                        <select id="propiedad" name="propiedad" class="select2 form-select" data-placeholder="propiedad" required>
-                                            <option value="" disabled selected>Seleccionar propiedad</option>
-                                            @foreach($propiedades as $p)
-                                                <option value="{{ $p->id }}" {{ old('propiedad', $group->propiedad ?? '') == $p->id ? 'selected' : '' }}>
-                                                    {{ $p->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        <label for="propiedad">propiedad</label>
-                                        @error('propiedad') <span class="invalid-feedback">{{ $message }}</span> @enderror
-                                    </div>
-                                </div>
-
                                 <div class="col-md-12">
                                     <div class="">
                                         <label for="detail">Detalles de la cita (Opcional)</label>
-                                        <textarea id="detail" name="detail" class="form-control @error('detail') is-invalid @enderror" rows={{3}}>
+                                        <textarea id="detail" name="detail" class="form-control @error('detail') is-invalid @enderror" rows="3">
                                             {{ old('detail', $group->detail ?? '') }}
                                         </textarea>
                                         @error('detail') <span class="invalid-feedback">{{ $message }}</span> @enderror
@@ -117,10 +103,10 @@
 
 @endsection
 
-
 @push('scripts')
 <script>
     $(document).ready(function () {
+        // Carga horarios al cambiar la fecha
         $('#fecha').on('change', function () {
             let fecha = $(this).val();
 
@@ -137,13 +123,24 @@
                         response.forEach(function (hora) {
                             select.append(`<option value="${hora}">${hora}</option>`);
                         });
+
+                        // Selecciona la hora actual si se está editando
+                        if (typeof group !== 'undefined' && group.time) {
+                            select.val(group.time);
+                        }
                     },
                     error: function (xhr) {
                         console.error(xhr.responseText);
+                        alert('Error al cargar horarios');
                     }
                 });
             }
         });
+
+        // Carga horarios iniciales si se está editando
+        if (typeof group !== 'undefined' && group.date) {
+            $('#fecha').trigger('change');
+        }
     });
 </script>
 @endpush

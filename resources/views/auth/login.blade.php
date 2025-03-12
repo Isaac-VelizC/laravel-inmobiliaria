@@ -15,7 +15,7 @@
                 <input id="email" type="email" class="@error('email') is-invalid @enderror" name="email"
                     value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
                 @error('email')
-                <span class="invalid-feedback" role="alert">
+                <span class="text-danger" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
@@ -24,7 +24,7 @@
                     name="password" required autocomplete="current-password" placeholder="Contraseña">
 
                 @error('password')
-                <span class="invalid-feedback" role="alert">
+                <span class="text-danger" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror

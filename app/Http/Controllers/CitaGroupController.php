@@ -6,6 +6,7 @@ use App\Helpers\Helper;
 use App\Models\Agente;
 use App\Models\CitaGroup;
 use App\Models\Propiedade;
+use App\Models\UserCitaGroup;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -41,29 +42,35 @@ class CitaGroupController extends Controller
             ->toJson();
     }
 
-    public function create()
+    public function create($id)
     {
-        $group = null;
+        // Verifica si el ID de la propiedad es válido
+        if (!$id) {
+            return redirect()->back()->with('error', 'No se encontró la propiedad, inténtalo de nuevo');
+        }
         $agentes = Agente::with('usuario')->where('status', 'activo')->get();
-        $propiedades = Propiedade::where('status', 'Disponible')->get();
-        return view('admin.citas.form', compact('agentes', 'propiedades', 'group'));
+        //sdd(Propiedade::findOrFail($id));
+        // Prepara los datos para la vista
+        $data = [
+            'agentes' => $agentes,
+            'propiedadId' => $id,
+            'group' => null
+        ];
+        // Retorna la vista con los datos preparados
+        return view('admin.citas.form', $data);
     }
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        Validator::make($request->all(), [
             'name' => 'required|string|max:100|regex:/^[A-Za-zÑñáéíóúÁÉÍÓÚ ]+$/',
-            'date' => 'required|date|after_or_equal:today', // Fecha debe ser hoy o futura
-            'time' => 'required|date_format:H:i', // Formato de hora válido
+            'date' => 'required|date|after_or_equal:today',
+            'time' => 'required|date_format:H:i',
             'cantidad' => 'required|integer|min:1|max:20',
             'agente' => 'required|integer|exists:agentes,id',
             'propiedad' => 'required|integer|exists:propiedades,id',
             'detail' => 'nullable|string|max:200'
         ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
 
         // Validar si la fecha es hoy y la hora ya pasó
         if ($request->date == now()->toDateString() && $request->time < now()->format('H:i')) {
@@ -85,7 +92,7 @@ class CitaGroupController extends Controller
             CitaGroup::create($request->all());
             return redirect()->route('adm.citas.group.index')->with('success', 'Cita registrada con éxito.');
         } catch (\Throwable $th) {
-            //dd($th->getMessage());
+            dd($th->getMessage());
             return redirect()->back()->with('error', 'Error al registrar la cita.');
         }
     }
@@ -94,8 +101,8 @@ class CitaGroupController extends Controller
     {
         $group = CitaGroup::findOrFail($id);
         $agentes = Agente::with('usuario')->where('status', 'activo')->get();
-        $propiedades = Propiedade::where('status', 'Disponible')->get();
-        return view('admin.citas.form', compact('agentes', 'propiedades', 'group'));
+        $propiedadId = null;
+        return view('admin.citas.form', compact('agentes', 'propiedadId', 'group'));
     }
 
     public function update(Request $request, $id)
@@ -106,7 +113,6 @@ class CitaGroupController extends Controller
             'time' => 'nullable|date_format:H:i',
             'cantidad' => 'required|integer|min:1|max:20',
             'agente' => 'required|integer|exists:agentes,id',
-            'propiedad' => 'required|integer|exists:propiedades,id',
             'detail' => 'nullable|string|max:200'
         ]);
 
@@ -151,7 +157,6 @@ class CitaGroupController extends Controller
                 'time' => $horaCita,
                 'cantidad' => $request->cantidad,
                 'agente' => $request->agente,
-                'propiedad' => $request->propiedad,
                 'detail' => $request->detail,
             ]);
 
@@ -164,9 +169,9 @@ class CitaGroupController extends Controller
     public function show($id)
     {
         $cita = CitaGroup::with(['guia.usuario.persona', 'hacienda', 'userCitas'])->findOrFail($id);
-        $agente = $cita->guia->usuario->persona->name .' '.$cita->guia->usuario->persona->surnames;
-        $users = $cita->userCitas();
-        return view('admin.citas.show', compact('cita', 'agente'));
+        $agente = $cita->guia->usuario->persona->name . ' ' . $cita->guia->usuario->persona->surnames;
+        $users = UserCitaGroup::with(['usuarioCita.persona'])->where('group', $id)->get();
+        return view('admin.citas.show', compact('cita', 'agente', 'users'));
     }
 
     public function obtenerHorarios(Request $request)

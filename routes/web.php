@@ -32,6 +32,7 @@ Route::group(['middleware' => ['checkRole:Admin']], function () {
         Route::get('/propiedades/editar/{id}', [PropiedadesController::class, 'edit'])->name('adm.propiedades.editar');
         Route::post('/propiedades/editar_existente/{id?}', [PropiedadesController::class, 'update'])->name('adm.propiedades.editar_existente');
         Route::delete('/propiedades/{id}/delete', [PropiedadesController::class, 'destroy'])->name('adm.propiedades.destroy');
+        Route::get('/propiedades/citas/{id?}', [PropiedadesController::class, 'citas'])->name('adm.propiedades.citas');
         ///Imagenes
         Route::post('/propiedades/imagen/store', [ImageController::class, 'store'])->name('adm.propiedades.imagenes.store');
         Route::delete('/propiedades/imagen/destroy/{id}', [ImageController::class, 'destroy'])->name('adm.propiedades.imagenes.destroy');
@@ -59,7 +60,7 @@ Route::group(['middleware' => ['checkRole:Admin']], function () {
         Route::get('/citas/group', [CitaGroupController::class, 'index'])->name('adm.citas.group.index');
         Route::get('/citas/group/ajax', [CitaGroupController::class, 'ajax_citas_group'])->name('adm.citas.group.ajax');
         Route::get('/citas/horarios/ajax', [CitaGroupController::class, 'obtenerHorarios'])->name('obtenerHorarios');
-        Route::get('/citas/group/create', [CitaGroupController::class, 'create'])->name('adm.citas.group.create');
+        Route::get('/citas/group/create/{id}', [CitaGroupController::class, 'create'])->name('adm.citas.group.create');
         Route::post('/citas/group/store', [CitaGroupController::class, 'store'])->name('adm.citas.group.store');
         Route::get('/citas/group/{id?}/show', [CitaGroupController::class, 'show'])->name('adm.citas.group.show');
         Route::get('/citas/group/{id?}/edit', [CitaGroupController::class, 'edit'])->name('adm.citas.group.edit');
@@ -82,7 +83,6 @@ Route::group(['middleware' => ['checkRole:Admin']], function () {
         //Route::get('/', [AdminController::class, 'index'])->name('adm.home');
         //Route::get('/propiedades/imagenes/{id}/ver', [ImagenController::class, 'showImage'])->name('adm.propiedades.imagenes.showImage');
         //Citas proiedades
-        Route::get('/propiedades/citas/{id?}', [PropiedadesController::class, 'citas'])->name('adm.propiedades.citas');
         //servicios
         //Route::get('/servicios/lista/solicitudes/{id}', [PropiedadesController::class, 'lista_solicitudes'])->name('adm.servicio.solicitud');
         //Route::get('/servicios/seguimiento/{id?}', [ServicioController::class, 'seguimiento'])->name('adm.servicios.seguimiento');
@@ -105,6 +105,7 @@ Route::group(['middleware' => ['checkRole:Admin']], function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/usuario/citas/ver/{id?}', [CitaController::class, 'index'])->name('usuario.citas.index');
+    Route::get('/usuario/cita/programar/{id}', [CitaController::class, 'storeCita'])->name('programar.cita');
 
     Route::get('/usuario', [CitaController::class, 'usuario'])->name('usuario.index');
     Route::get('/usuario/servicios', [CitaController::class, 'servicios'])->name('usuario.servicios.index');

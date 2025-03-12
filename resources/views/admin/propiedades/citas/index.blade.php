@@ -7,6 +7,7 @@
         <!-- ========== title-wrapper start ========== -->
         <x-title-wrapper title="Cita en Grupo" :breadcrumbs="[
             ['label' => 'Panel', 'url' => route('home')],
+            ['label' => 'Propiedad', 'url' => route('adm.propiedades.show', $id)],
             ['label' => 'Citas', 'url' => null]
         ]" />
 
@@ -26,7 +27,11 @@
                     <div class="card-style mb-30">
                         <div class="title d-flex flex-wrap justify-content-between align-items-center mb-30">
                             <div class="left">
-                                <h6 class="mb-10">Lista de Citas</h6>
+                                <h6 class="mb-10">{{ $titulo }}, citas</h6>
+                            </div>
+                            <div class="right">
+                                <a href="{{ route('adm.citas.group.create', $id) }}"
+                                    class="main-btn primary-btn-light rounded-full btn-hover">Registrar Cita</a>
                             </div>
                         </div>
                         <div class="table-wrapper table-responsive">
@@ -60,18 +65,13 @@
                                     </tr>
                                 </thead>
                             </table>
-                            <!-- end table -->
                         </div>
                     </div>
-                    <!-- end card -->
                 </div>
-                <!-- end col -->
             </div>
-            <!-- end row -->
         </div>
         <!-- ========== tables-wrapper end ========== -->
     </div>
-    <!-- end container -->
 </section>
 
 @endsection

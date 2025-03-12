@@ -26,8 +26,7 @@
                             <h6 class="mb-10">Información de la cita</h6>
                         </div>
                         <div class="right g-4">
-                            <a href="{{ route('adm.citas.group.create') }}"
-                                class="main-btn danger-btn-light rounded-full btn-hover">Borrar</a>
+                            <a href="#" class="main-btn danger-btn-light rounded-full btn-hover">Borrar</a>
                         </div>
                     </div>
                     <div class="row">
@@ -45,21 +44,37 @@
                             </div>
                         </div>
                         <div class="col-12 col-lg-7">
-                            <div class=" card-style mb-4">
+                            <div class="card-style mb-4">
                                 <div class="d-flex justify-content-between align-content-center mb-4">
                                     <h5 class="mb-0">Usuarios Registrados</h5>
                                 </div>
-                                @if (count($cita->userCitas) > 0)
-                                    @foreach ($cita->userCitas as $item)
-                                    <p>Nombre</p>
-                                    @endforeach
+                                @if (count($users) > 0)
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Email</th>
+                                                <th>Teléfono</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($users as $item)
+                                                <tr>
+                                                    <td>{{ $item->usuarioCita->persona->name .' '. $item->usuarioCita->persona->surnames }}</td>
+                                                    <td>{{ $item->usuarioCita->email }}</td>
+                                                    <td>{{ $item->usuarioCita->persona->phone }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 @else
                                     <div class="text-center">
-                                        <h5>No hay usuarios registrados aun</h5>
+                                        <h5>No hay usuarios registrados aún</h5>
                                     </div>
                                 @endif
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>

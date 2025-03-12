@@ -2,24 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cita;
 use App\Models\CitaGroup;
 use App\Models\Propiedade;
+use App\Models\UserCitaGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CitaController extends Controller
 {
-    public function create()
+    public function storeCita($id)
     {
-        //
+        try {
+            $cita = CitaGroup::findOrFail($id);
+            $idUser = Auth::id();
+            //Cita::create();
+            UserCitaGroup::create([
+                'group' => $id,
+                'propiedad' => $cita->propiedad,
+                'usuario' => $idUser
+            ]);
+            return redirect()->route('propiedades.detalle', $cita->propiedad)->with('success', 'Cita Registrada Exitosamente');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Ocurrio un error al registrar la cita');
+        }
     }
 
     public function index($id)
     {
+        $idUser = Auth::id();
         $citas = CitaGroup::with('hacienda')->where('propiedad', $id)->latest()->get();
+        $misCitas = UserCitaGroup::with(['propiedadCita', 'groupCita'])->where('usuario', $idUser)->get();
         $propiedad = Propiedade::findOrFail($id);
         return view('web.citas', [
             'citas' => $citas,
-            'propiedad' => $propiedad
+            'propiedad' => $propiedad,
+            'misCitas' => $misCitas
         ]);
     }
 

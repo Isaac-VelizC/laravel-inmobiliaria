@@ -9,7 +9,7 @@ body {
   font-family: "Bricolage Grotesque", sans-serif;
   font-style: normal;
   font-size: 1.4rem;
-  background-color: #00a47b;
+  background-color: #365CF5;
   background-image:none;
   transition-property: margin;
   transition-duration: 1s;
@@ -39,7 +39,7 @@ body {
   margin-top: 5rem;
 }
 .login-content p strong {
-  color: #87a922;
+  color: #365CF5;
 }
 .login-content_header {
   text-align: center;
@@ -67,7 +67,7 @@ input {
 }
 input[type="submit"] {
   border: none;
-  background-color: #87a922;
+  background-color: #365CF5;
   color: #fffacd;
   font-weight: 800;
   letter-spacing: 1.3px;

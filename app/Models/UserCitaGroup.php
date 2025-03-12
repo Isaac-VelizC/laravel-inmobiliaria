@@ -13,15 +13,15 @@ class UserCitaGroup extends Model
         'group', 'propiedad', 'usuario'
     ];
 
-    public function usuario() {
+    public function usuarioCita() {
         return $this->belongsTo(User::class, 'usuario');
     }
 
-    public function propiedad() {
+    public function propiedadCita() {
         return $this->belongsTo(Propiedade::class, 'propiedad');
     }
 
-    public function group() {
+    public function groupCita() {
         return $this->belongsTo(CitaGroup::class, 'group');
     }
 }

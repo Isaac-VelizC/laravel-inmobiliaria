@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\CitaGroup;
 use App\Models\Hotspot;
 use App\Models\Image;
 use App\Models\Propiedade;
@@ -262,5 +263,13 @@ class PropiedadesController extends Controller
             'imagenes360' => $imagenes360,
             'hotspots' => $hotspots
         ]);
+    }
+
+    public function citas($id)
+    {
+        $citas = CitaGroup::where('propiedad', $id)->get();
+        $prodiedad  = Propiedade::findOrFail($id);
+        $titulo = "Propiedad: " . $prodiedad->name;
+        return view('admin.propiedades.citas.index', ['citas' => $citas, 'id' => $id, 'titulo' => $titulo]);
     }
 }
