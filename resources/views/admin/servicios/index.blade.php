@@ -28,10 +28,10 @@
                             <div class="left">
                                 <h6 class="mb-10">Lista de Citas</h6>
                             </div>
-                            <div class="right">
-                                <a href="{{ route('adm.citas.group.create') }}"
+                            <!--div-- class="right">
+                                <a href="#"
                                     class="main-btn primary-btn-light rounded-full btn-hover">Registrar Cita</a>
-                            </div>
+                            </!--div-->
                         </div>
                         <div class="table-wrapper table-responsive">
                             <table id="tableServicios" class="display table" style="width:100%">

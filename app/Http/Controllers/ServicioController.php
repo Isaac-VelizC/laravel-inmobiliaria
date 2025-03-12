@@ -32,7 +32,7 @@ class ServicioController extends Controller
 
         return datatables()
             ->of($data)
-            ->addColumn('action', 'admin.citas.botones')
+            ->addColumn('action', 'admin.servicios.botones')
             ->rawColumns(['action'])
             ->toJson();
     }
