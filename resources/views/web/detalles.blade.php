@@ -1,5 +1,7 @@
 @extends('layouts.client.app')
 
+@section('title', $propiedad->name )
+
 @section('content')
 
 <!-- Pannellum CSS -->
@@ -36,6 +38,19 @@
   </div>
 </section>
 <!--/ Intro Single End /-->
+@if (session('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{ session('success') }}
+  <button type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
+</div>
+@endif
+
+@if (session('error'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{ session('error') }}
+  <button type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
+</div>
+@endif
 
 <!--/ Property Single Star /-->
 <section class="property-single nav-arrow-b">

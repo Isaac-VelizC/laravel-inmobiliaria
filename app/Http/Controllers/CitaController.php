@@ -4,10 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Cita;
 use App\Models\CitaGroup;
+use App\Models\Encuesta;
+use App\Models\Pregunta;
 use App\Models\Propiedade;
+use App\Models\Respuesta;
+use App\Models\RespuestasSeleccionada;
+use App\Models\Resultado;
 use App\Models\UserCitaGroup;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CitaController extends Controller
 {
@@ -16,15 +23,39 @@ class CitaController extends Controller
         try {
             $cita = CitaGroup::findOrFail($id);
             $idUser = Auth::id();
-            //Cita::create();
+            // Verificar 1: Cita existente en la misma propiedad (pendiente)
+            $citaExistenteMismaPropiedad = UserCitaGroup::where('usuario', $idUser)
+                ->where('propiedad', $cita->propiedad)
+                ->whereHas('groupCita', function ($query) {
+                    $query->where('date', '>=', now()->toDateString());
+                })
+                ->exists();
+            // Verificar 2: Cita existente en el mismo horario (cualquier propiedad)
+            $citaExistenteMismoHorario = UserCitaGroup::where('usuario', $idUser)
+                ->whereHas('groupCita', function ($query) use ($cita) {
+                    $query->where('date', $cita->date)
+                        ->where('time', $cita->time);
+                })
+                ->exists();
+
+            if ($citaExistenteMismaPropiedad) {
+                return redirect()->back()->with('error', 'Ya tienes una cita pendiente en esta propiedad');
+            }
+
+            if ($citaExistenteMismoHorario) {
+                return redirect()->back()->with('error', 'Ya tienes una cita programada para este mismo horario');
+            }
+
             UserCitaGroup::create([
                 'group' => $id,
                 'propiedad' => $cita->propiedad,
                 'usuario' => $idUser
             ]);
-            return redirect()->route('propiedades.detalle', $cita->propiedad)->with('success', 'Cita Registrada Exitosamente');
+
+            return redirect()->route('propiedades.detalle', $cita->propiedad)
+                ->with('success', 'Cita Registrada Exitosamente');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'Ocurrio un error al registrar la cita');
+            return redirect()->back()->with('error', 'Ocurrió un error al registrar la cita');
         }
     }
 
@@ -32,7 +63,7 @@ class CitaController extends Controller
     {
         $idUser = Auth::id();
         $citas = CitaGroup::with('hacienda')->where('propiedad', $id)->latest()->get();
-        $misCitas = UserCitaGroup::with(['propiedadCita', 'groupCita'])->where('usuario', $idUser)->get();
+        $misCitas = UserCitaGroup::with(['propiedadCita', 'groupCita'])->where('usuario', $idUser)->latest()->get();
         $propiedad = Propiedade::findOrFail($id);
         return view('web.citas', [
             'citas' => $citas,
@@ -41,36 +72,65 @@ class CitaController extends Controller
         ]);
     }
 
-    public function all_citas_user()
+    public function encuesta($citaId, $propId)
     {
-        $citas = Cita::where('usuario_id', auth()->id())->get();
-        // Devuelves las citas en formato JSON, junto con un mensaje de éxito
-        return response()->json(['status' => 'success', 'data' => $citas]);
+        $estadEncuesta = false;
+        $user = Auth::user();
+        $propiedad = Propiedade::findOrFail($propId);
+        $cita = CitaGroup::findOrFail($citaId);
+        $encuesta = Encuesta::latest('created_at')->with('preguntas')->first();
+        if (!$encuesta) {
+            return redirect()->back()->with('error', 'No hay encuestas disponibles.');
+        }
+
+        // Usar el modelo correcto para respuestas del usuario (ej: Resultado)
+        $datos = Resultado::where('user_id', $user->id)
+            ->where('cita_id', $citaId)
+            ->first();
+
+        $preguntas = collect(); // Inicializar como colección vacía
+
+        if ($datos) {
+            $estadEncuesta = true;
+        } else {
+            // Cargar preguntas con respuestas usando relaciones
+            $preguntas = Pregunta::where('encuesta_id', $encuesta->id)
+                ->with('respuestas')
+                ->get();
+        }
+
+        return view('web.citas_encuesta', compact('cita', 'propiedad', 'encuesta', 'preguntas', 'estadEncuesta'));
     }
 
-    public function encuesta($cita, $prop)
+
+    public function storeRespuestas(Request $request)
     {
-        $propiedad = Propiedades::findOrFail($prop);
-        //Verificamos si hay respuestas
-        $respuestas = Respuesta::join('preguntas', 'respuestas.respuesta_id', '=', 'preguntas.id')
-            ->join('encuestas', 'preguntas.encuesta_id', '=', 'encuestas.id')
-            ->where('respuestas.cita_id', $cita)
-            ->get();
-        //Respuesta::obtenerRespuestasPorCita($cita);
-        // Iterar sobre las respuestas y mostrar los datos
-        $respuestas2 = "";
-        $encuestas = null;
-        //dd($respuestas);
-        if ($respuestas->count() == 0) {
-            $fechaLimite = '2025-12-20';
-            $encuestas = Encuesta::encuestasHabilitadasHasta($fechaLimite);
-        } else {
-            foreach ($respuestas as $respuesta) {
-                $respuestas2 .= '<h5>' . $respuesta->nombre . " '" . $propiedad->nombre . "'</h5>";
-                $respuestas2 .= $respuesta->pregunta . "<br>";
+        $request->validate([
+            'cita_id' => 'required|exists:cita_groups,id',
+            'encuesta_id' => 'required|exists:encuestas,id',
+            'propiedad' => 'required|exists:propiedades,id',
+            'respuestas' => 'required|array'
+        ]);
+
+        try {
+            DB::beginTransaction();
+            $user = Auth::user();
+            foreach ($request->respuestas as $preguntaId => $respuestaId) {
+                Resultado::create([
+                    'user_id' => $user->id,
+                    'cita_id' => $request->cita_id,
+                    'encuesta_id' => $request->encuesta_id,
+                    'pregunta_id' => $preguntaId,
+                    'respuesta_id' => $respuestaId,
+                ]);
             }
+
+            DB::commit();
+            return redirect()->route('usuario.citas.encuesta', [$request->cita_id, $request->propiedad])->with('success', 'Encuesta guardada correctamente');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Error al guardar: ' . $e->getMessage());
         }
-        return view('web.home.citas_encuesta', ['cita' => $cita, 'prop' => $prop,  'encuestas' => $encuestas, 'propiedad' => $propiedad, 'respuestas' => $respuestas2]);
     }
 
     public function index_admin()
@@ -99,56 +159,7 @@ class CitaController extends Controller
         return view('admin::citas.ajax.cita_encuesta', ['respuestas' => $respuestas2]);
     }
 
-    public function admin_cita_encuesta_graficas()
-    {
-        $mesesPasados = $this->ultimosMeses();
-        $fechaLimite = '2025-05-30';
-        $encuestas = Encuesta::encuestasHabilitadasHasta($fechaLimite);
-        //Grafica 1
-        $encuenstaNombre[0] = $encuestas[0]->nombre;
-        $preguntas1 = Pregunta::preguntasPorEncuesta($encuestas[0]->id);
-        $j = 0;
-        foreach ($preguntas1 as $pregunta) {
-            $textoSalida1[$j] = "[";
-            $textoPregunta1[$j] = $pregunta->pregunta;
-            $cadenaMeses = '[';
-            for ($i = 0; $i < count($mesesPasados); $i++) {
-                $cadenaMeses .= "'" . $mesesPasados[$i] . "', ";
-                $respuestas1 = Respuesta::obtenerRespuestasPorPregunta($mesesPasados[$i], $pregunta->id);
-                if ($respuestas1 != null) {
-                    $textoSalida1[$j] .= $respuestas1[0]->resultado . ", ";
-                } else {
-                    $textoSalida1[$j] .= "0, ";
-                }
-            }
-            $cadenaMeses = rtrim($cadenaMeses, ', ');
-            $cadenaMeses .= ']';
-            //
-            $textoSalida1[$j] = rtrim($textoSalida1[$j], ', ');
-            $textoSalida1[$j] .= ']';
-            $j++;
-        }
-        //Grafica 2
-        $encuenstaNombre[1] = $encuestas[0]->nombre;
-        $preguntas2 = Pregunta::preguntasPorEncuesta($encuestas[0]->id);
-        $j = 0;
-        foreach ($preguntas2 as $pregunta) {
-            $textoSalida2[$j] = "[";
-            $textoPregunta2[$j] = $pregunta->pregunta;
-            for ($i = 0; $i < count($mesesPasados); $i++) {
-                $respuestas2 = Respuesta::obtenerRespuestasPorPregunta($mesesPasados[$i], $pregunta->id);
-                if ($respuestas2 != null) {
-                    $textoSalida2[$j] .= $respuestas2[0]->resultado . ", ";
-                } else {
-                    $textoSalida2[$j] .= "0, ";
-                }
-            }
-            $textoSalida2[$j] = rtrim($textoSalida2[$j], ', ');
-            $textoSalida2[$j] .= ']';
-            $j++;
-        }
-        return view('admin::citas.encuestas_graficas', ['meses' => $cadenaMeses, 'encuestas' => $encuenstaNombre, 'preguntas1' => $preguntas1, 'preguntas2' => $preguntas2, 'textoSalida1' => $textoSalida1, 'textoSalida2' => $textoSalida2]);
-    }
+
     public function index_admin_user($id)
     {
         $citas = Cita::getCitasByUsuario($id);
@@ -156,12 +167,7 @@ class CitaController extends Controller
         $titulo = "Usuario: " . $user->name;
         return view('admin::citas.index', ['citas' => $citas, 'id' => $id, 'titulo' => $titulo]);
     }
-    public function usuario()
-    {
-        //$citas = Cita::all();
-        $user = auth()->user();
-        return view('web.home.usuario', ['user' => $user]);
-    }
+
     public function servicios()
     {
         $user = auth()->user();
@@ -178,7 +184,8 @@ class CitaController extends Controller
         return view('web.home.servicios', ['user' => $user, 'servicios' => $servicios, 'tipoServicio' => $tipoServicio, 'propiedad' => $propiedad]);
     }
 
-    public function detalleServicioCliente($id) {
+    public function detalleServicioCliente($id)
+    {
         $servicio = Servicio::with(['tipoServicio', 'imagenes', 'propiedad'])->findOrFail($id);
         return view('web.home.servicio_detalle', ['servicio' => $servicio]);
     }
@@ -220,11 +227,6 @@ class CitaController extends Controller
         Cita::create($request->all());
         return redirect()->route('propiedades.detalle', $request->id_propiedad)
             ->with('success', 'Cita guardada exitosamente.');
-    }
-
-    public function show(string $id)
-    {
-        //
     }
 
     public function edit($id)
@@ -274,11 +276,6 @@ class CitaController extends Controller
         $cita->update($request->all());
 
         return redirect()->route('adm.citas.edit', $request->id)->with('success', 'Cita actualizada exitosamente.');
-    }
-
-    public function destroy(string $id)
-    {
-        //
     }
 
     private function generateTimes($anio, $mes, $dia)

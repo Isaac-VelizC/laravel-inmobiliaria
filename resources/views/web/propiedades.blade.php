@@ -1,5 +1,7 @@
 @extends('layouts.client.app')
 
+@section('title', 'Propiedades')
+
 @section('content')
 
 <!--/ Intro Single star /-->

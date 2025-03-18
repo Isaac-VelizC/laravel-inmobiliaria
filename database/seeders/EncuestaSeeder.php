@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Encuesta;
 use App\Models\Pregunta;
+use App\Models\Respuesta;
+use App\Models\RespuestasSeleccionada;
 use App\Models\ServiciosTipo;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -22,32 +24,44 @@ class EncuestaSeeder extends Seeder
         ]);
 
         // Crear las preguntas para la encuesta
-        Pregunta::create([
-            'question' => 'Muy malo',
-            'encuesta_id' => $encuesta->id,
-        ]);
+        $preguntas = [
+            '¿Qué tan satisfecho está con el estado de conservación del inmueble?',
+            '¿Considera que la información proporcionada por el agente fue clara y útil?',
+            '¿Cómo calificaría la atención recibida por parte del agente inmobiliario?',
+            '¿Qué tan probable es que nos recomiende a amigos o familiares?',
+        ];
 
-        Pregunta::create([
-            'question' => 'Malo',
-            'encuesta_id' => $encuesta->id,
-        ]);
+        $respuestas = [
+            'Muy malo',
+            'Malo',
+            'Regular',
+            'Bueno',
+            'Excelente',
+        ];
 
-        Pregunta::create([
-            'question' => 'Regular',
-            'encuesta_id' => $encuesta->id,
-        ]);
+        // Crear las respuestas asociadas a la pregunta
+        foreach ($respuestas as $respuesta) {
+            Respuesta::create([
+                'question' => $respuesta,
+            ]);
+        }
 
-        Pregunta::create([
-            'question' => 'Bueno',
-            'encuesta_id' => $encuesta->id,
-        ]);
+        $respuestasList = Respuesta::all();
 
-        Pregunta::create([
-            'question' => 'Excelente',
-            'encuesta_id' => $encuesta->id,
-        ]);
+        foreach ($preguntas as $pregunta) {
+            $preguntaCreada = Pregunta::create([
+                'question' => $pregunta,
+                'encuesta_id' => $encuesta->id,
+            ]);
+            foreach ($respuestasList as $value) {
+                RespuestasSeleccionada::create([
+                    'pregunta_id' => $preguntaCreada->id,
+                    'respuesta_id' => $value->id
+                ]);
+            }
+        }
 
-        ServiciosTipo::create([
+        /*ServiciosTipo::create([
             'name' => 'Mantenimiento',
             'detail' => 'Servicios de mantenimiento preventivo y correctivo para asegurar el buen estado de las instalaciones.'
         ]);
@@ -65,7 +79,6 @@ class EncuestaSeeder extends Seeder
         ServiciosTipo::create([
             'name' => 'Demolición',
             'detail' => 'Servicios de demolición controlada de estructuras, garantizando la seguridad y cumplimiento de normativas.'
-        ]);
-        
+        ]);*/
     }
 }

@@ -10,17 +10,29 @@
     </button>
     <a class="navbar-brand text-brand" href="{{ url('/') }}">Soluciones<span class="color-b">{{"
         "}}Inmobiliarias</span></a>
+    <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none">
+      @guest
+      <a href="{{ route('login') }}"><i class="bi bi-person"></i></a>
+      @else
+      <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        <i class="bi bi-box-arrow-right"></i>
+      </a>
+      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+      </form>
+      @endguest
+    </button>
     <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="{{ url('/') }}">Inicio</a>
         </li>
         @auth
-        @role('Admin')
+        @unlessrole('Cliente')
         <li class="nav-item">
           <a class="nav-link" href="{{ route('home') }}">Administración</a>
         </li>
-        @endrole
+        @endhasanyrole
         @endauth
         <li class="nav-item">
           <a class="nav-link {{ Request::is('propieades') ? 'active' : '' }}"

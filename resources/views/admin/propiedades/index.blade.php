@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Propiedades - Lista')
+
 @section('content')
 @php
 use App\Models\Visita;

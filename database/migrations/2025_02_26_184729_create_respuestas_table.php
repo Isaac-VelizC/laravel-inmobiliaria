@@ -13,14 +13,7 @@ return new class extends Migration
     {
         Schema::create('respuestas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('cita_id');
-            $table->foreign('cita_id')->references('id')->on('citas')->onDelete('cascade');
-            $table->unsignedBigInteger('encuesta_id');
-            $table->foreign('encuesta_id')->references('id')->on('encuestas')->onDelete('cascade');
-            $table->unsignedBigInteger('respuesta_id');
-            $table->foreign('respuesta_id')->references('id')->on('preguntas')->onDelete('cascade');
+            $table->string('question');
             $table->timestamps();
         });
     }

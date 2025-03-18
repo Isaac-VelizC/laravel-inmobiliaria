@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Gestion de roles y permisos')
+
 @section('content')
 
 <section class="table-components">

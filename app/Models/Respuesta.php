@@ -9,30 +9,15 @@ class Respuesta extends Model
 {
     use HasFactory;
     protected $table = 'respuestas';
-    protected $fillable = ['user_id', 'cita_id', 'encuesta_id', 'respuesta_id'];
+    protected $fillable = ['question'];
 
-    public function pregunta()
+    public function respuestasSelect()
     {
-        return $this->belongsTo(Pregunta::class, 'respuesta_id');
+        return $this->hasMany(RespuestasSeleccionada::class, 'respuesta_id');
     }
 
-    public function encuesta()
+    public function preguntas()
     {
-        return $this->belongsTo(Encuesta::class, 'encuesta_id');
-    }
-
-    public function usuario() {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-    
-    public function cita() {
-        return $this->belongsTo(Cita::class, 'cita_id');
-    }
-
-    public static function obtenerRespuestasPorCita(int $citaId)
-    {
-        return static::where('cita_id', $citaId)
-            ->with('pregunta.encuesta')
-            ->get();
+        return $this->belongsToMany(Pregunta::class, 'respuestas_seleccionadas');
     }
 }

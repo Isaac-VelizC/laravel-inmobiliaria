@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Usuarios- Formulario')
+
 @section('content')
 
 <section class="tab-components">

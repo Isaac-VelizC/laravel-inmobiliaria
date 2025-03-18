@@ -37,17 +37,17 @@
         <nav class="nav-footer">
           <ul class="list-inline">
             <li class="list-inline-item">
-              <a href="#">Inicio</a>
+              <a href="{{ url('/') }}">Inicio</a>
             </li>
             <li class="list-inline-item">
-              <a href="#">Nosotros</a>
+              <a href="{{ route('home.nosotros') }}">Nosotros</a>
             </li>
             <li class="list-inline-item">
-              <a href="#">Propiedades</a>
+              <a href="{{ route('home.propiedades') }}">Propiedades</a>
             </li>
-            <li class="list-inline-item">
+            <!--li-- class="list-inline-item">
               <a href="#">Contacto</a>
-            </li>
+            </!--li-->
           </ul>
         </nav>
         <div class="socials-a">

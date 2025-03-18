@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Citas')
+
 @section('content')
 
 <section class="table-components">
@@ -101,7 +103,7 @@
                     return `<p>${data}</p>`;
                 }},
                 { data: "status", name: "status", render: function(data) {
-                    let statusClass = data === 'activo' ? 'active-btn' : 'close-btn';
+                    let statusClass = data === 'pendiente' ? 'warning-btn' : (data === 'confirmada' ? 'active-btn' : (data === 'concretada' ? 'success-btn' : 'close-btn'));
                     return `<span class="status-btn ${statusClass}">${data}</span>`;
                 }},
                 { data: "action", name: "action", orderable: false, searchable: false }

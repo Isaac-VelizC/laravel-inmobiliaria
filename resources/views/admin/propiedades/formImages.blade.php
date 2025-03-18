@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Propiedades - Imagenes')
+
 @section('content')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
 <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>

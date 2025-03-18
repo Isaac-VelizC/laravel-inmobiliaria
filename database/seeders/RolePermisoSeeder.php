@@ -33,8 +33,21 @@ class RolePermisoSeeder extends Seeder
         // Asignar permisos al rol admin
         $adminRole = Role::findByName('Admin');
         $adminRole->givePermissionTo('Administrar Todo');
+        $adminRole->givePermissionTo('Gestion Usuarios');
+        $adminRole->givePermissionTo('Gestion Servicios');
+        $adminRole->givePermissionTo('Crear Propiedad');
+        $adminRole->givePermissionTo('Editar Propiedad');
+        $adminRole->givePermissionTo('Borrar Propiedad');
+        $adminRole->givePermissionTo('Show Propiedad');
+        $adminRole->givePermissionTo('Crear Citas');
+        $adminRole->givePermissionTo('Editar Citas');
+        $adminRole->givePermissionTo('Show Citas');
         $adminRole = Role::findByName('Agente');
-        $adminRole->givePermissionTo('Administrar Todo');
+        $adminRole->givePermissionTo('Gestion Servicios');
+        $adminRole->givePermissionTo('Crear Propiedad');
+        $adminRole->givePermissionTo('Editar Propiedad');
+        $adminRole->givePermissionTo('Show Propiedad');
+        $adminRole->givePermissionTo('Show Citas');
         // Asignar rol admin al usuario con ID 1
         $userAdmin = User::find(1);
         if ($userAdmin) {

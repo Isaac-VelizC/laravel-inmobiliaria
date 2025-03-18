@@ -1,5 +1,19 @@
 @extends('layouts.app')
 
+@section('title', $propiedad->name)
+
+
+@section('og_title', $propiedad->nombre)
+@section('og_description', $message)
+@php
+    $og_img = asset('imgs/Soluciones_Inmobiliarias.webp');
+    if($portadaPublic){
+        $og_img = $portadaPublic->path;
+    }
+@endphp
+@section('og_image', $og_img)
+@section('og_url', $urlPublic)
+
 @section('content')
 <section class="card-components">
     <div class="container-fluid">
@@ -13,10 +27,18 @@
         <x-alert type="danger" title="danger" heading="Error" message="{{ session('error') }}" />
         @endif
         <div class="d-flex align-content-center justify-content-end flex-wrap gap-3 my-4">
-            <button type="button" onclick="abrirModalDeletePropiedad()" class=" main-btn danger-btn-light btn-hover">Eliminar</button>
-            <a href="{{ route('adm.servicios.agregar', $propiedad->id ) }}" class=" main-btn info-btn-light btn-hover">Servicio</a>
-            <a href="{{ route('adm.subir.imagenes', $propiedad->id ) }}" class="main-btn success-btn-light btn-hover">Imagenes</a>
-            <a href="{{ route('adm.propiedades.editar', $propiedad->id) }}" id="submitBtn" class="main-btn primary-btn-light btn-hover">Editar</a>
+            @can('Borrar Propiedad')
+            <button type="button" onclick="abrirModalDeletePropiedad()"
+                class=" main-btn danger-btn-light btn-hover">Eliminar</button>
+            @endcan
+            <a href="{{ route('adm.servicios.agregar', $propiedad->id ) }}"
+                class=" main-btn info-btn-light btn-hover">Servicio</a>
+            <a href="{{ route('adm.subir.imagenes', $propiedad->id ) }}"
+                class="main-btn success-btn-light btn-hover">Imagenes</a>
+            @can('Editar Propiedad')
+            <a href="{{ route('adm.propiedades.editar', $propiedad->id) }}" id="submitBtn"
+                class="main-btn primary-btn-light btn-hover">Editar</a>
+            @endcan
         </div>
 
         <div class="cards-styles">
@@ -25,17 +47,25 @@
                     <div class="card-style mb-30">
                         <h5 class="card-tile mb-4">Detalles de la Propiedad</h5>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>Nombre de la propiedad:</strong> {{ $propiedad->name }}</li>
-                            <li class="list-group-item"><strong>Propietario:</strong> {{ $propiedad->propiet->name . ' ' . $propiedad->propiet->surnames }}</li>
+                            <li class="list-group-item"><strong>Nombre de la propiedad:</strong> {{ $propiedad->name }}
+                            </li>
+                            <li class="list-group-item"><strong>Propietario:</strong> {{ $propiedad->propiet->name . ' '
+                                . $propiedad->propiet->surnames }}</li>
                             <li class="list-group-item"><strong>Teléfono:</strong> {{ $propiedad->propiet->phone }}</li>
                             <li class="list-group-item"><strong>Dirección:</strong> {{ $propiedad->address }}</li>
                             <li class="list-group-item"><strong>Ciudad:</strong> {{ $propiedad->city }}</li>
-                            <li class="list-group-item"><strong>Tipo de Propiedad:</strong> {{ $propiedad->tipoPropiedad->name }}</li>
-                            <li class="list-group-item"><strong>Tipo de Venta:</strong> {{ $propiedad->tipoTraspaso->name }}</li>
-                            <li class="list-group-item"><strong>Superficie Construida:</strong> {{$propiedad->superficie_construida }} m²</li>
-                            <li class="list-group-item"><strong>Superficie Terreno:</strong> {{$propiedad->superficie_terreno }} m²</li>
-                            <li class="list-group-item"><strong>Publicidad:</strong> {{ $propiedad->state_advertising }}</li>
-                            <li class="list-group-item"><strong>Precio:</strong> {{ $propiedad->price . ' ' . $propiedad->coin }}</li>
+                            <li class="list-group-item"><strong>Tipo de Propiedad:</strong> {{
+                                $propiedad->tipoPropiedad->name }}</li>
+                            <li class="list-group-item"><strong>Tipo de Venta:</strong> {{
+                                $propiedad->tipoTraspaso->name }}</li>
+                            <li class="list-group-item"><strong>Superficie Construida:</strong>
+                                {{$propiedad->superficie_construida }} m²</li>
+                            <li class="list-group-item"><strong>Superficie Terreno:</strong>
+                                {{$propiedad->superficie_terreno }} m²</li>
+                            <li class="list-group-item"><strong>Publicidad:</strong> {{ $propiedad->state_advertising }}
+                            </li>
+                            <li class="list-group-item"><strong>Precio:</strong> {{ $propiedad->price . ' ' .
+                                $propiedad->coin }}</li>
                             <li class="list-group-item"><strong>Estado:</strong> {{ $propiedad->status }}</li>
                         </ul>
                     </div>
@@ -44,46 +74,49 @@
                     <div class=" card-style mb-4">
                         <div class="d-flex justify-content-between align-content-center mb-4">
                             <h5 class="mb-0">Información de la propiedad existente </h5>
-                            <a class="main-btn primary-btn-outline rounded-full" href="{{ $shareLinks['facebook'] }}" target="_blank" data-network="facebook">
+                            <a class="main-btn primary-btn-outline rounded-full" href="{{ $shareLinks['facebook'] }}"
+                                target="_blank" data-network="facebook">
                                 <span>Facebook</span>
                             </a>
                         </div>
                         <div>
-                        <p class="d-flex flex-wrap">
-                            <span class="mdi mdi-home-city-outline">{{ " Ambientes: ".$propiedad->num_rooms }}</span>
-                            <span class="mdi mdi-toilet">{{ " Baños: ".$propiedad->num_bathrooms }}</span>
-                            <span class="mdi mdi-garage-open-variant">{{ " Garaje: ".$propiedad->num_garages }}</span>
-                            <span class="mdi mdi-countertop">{{ " Cocina: ".$propiedad->num_kitchens }}</span>
-                            <span class="mdi mdi-bed-king-outline">{{ " Dormitorio: ".$propiedad->num_bedrooms }}</span>
-                            <span class="mdi mdi-sofa-outline">{{ " Sala: ".$propiedad->num_hall }}</span>
-                        </p>  
-                        <div class="mt-2 mb-4">
-                            <p>{{ $propiedad->description }}</p>
-                        </div>
-                        <h4 class="mb-4">Imagenes</h4>
-                        <div class="row">
-                            @if (count($propiedad->imagenes) > 0)
+                            <p class="d-flex flex-wrap">
+                                <span class="mdi mdi-home-city-outline">{{ " Ambientes: ".$propiedad->num_rooms
+                                    }}</span>
+                                <span class="mdi mdi-toilet">{{ " Baños: ".$propiedad->num_bathrooms }}</span>
+                                <span class="mdi mdi-garage-open-variant">{{ " Garaje: ".$propiedad->num_garages
+                                    }}</span>
+                                <span class="mdi mdi-countertop">{{ " Cocina: ".$propiedad->num_kitchens }}</span>
+                                <span class="mdi mdi-bed-king-outline">{{ " Dormitorio: ".$propiedad->num_bedrooms
+                                    }}</span>
+                                <span class="mdi mdi-sofa-outline">{{ " Sala: ".$propiedad->num_hall }}</span>
+                            </p>
+                            <div class="mt-2 mb-4">
+                                <p>{{ $propiedad->description }}</p>
+                            </div>
+                            <h4 class="mb-4">Imagenes</h4>
+                            <div class="row">
+                                @if (count($propiedad->imagenes) > 0)
                                 @foreach ($propiedad->imagenes as $imagen)
                                 <div class="col-md-3 mb-3">
                                     <div class="card">
-                                        <img class="card-img-top"
-                                            src="{{ asset('storage/' . $imagen->path)  }}" alt="{{$imagen->id  }}"
-                                            height={{ 70 }} style="object-fit: cover;">
+                                        <img class="card-img-top" src="{{ asset('storage/' . $imagen->path)  }}"
+                                            alt="{{$imagen->id  }}" height={{ 70 }} style="object-fit: cover;">
                                         <div>
                                             <p>{{ $imagen->type }}</p>
                                         </div>
                                     </div>
                                 </div>
                                 @endforeach
-                            @else
+                                @else
                                 <div class="text-center my-5">
                                     <h4>No hay Imagenes de la Propiedad</h4>
                                 </div>
-                            @endif
-                        </div>
-                        @if (count($imagen360) > 0)
+                                @endif
+                            </div>
+                            @if (count($imagen360) > 0)
                             <div id="panorama" style="width: 100%; height: 400px;"></div>
-                        @endif
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -144,7 +177,8 @@
                     <p>Estas seguro de que quiere eliminar la propiedad</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="main-btn secondary-btn-outline" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="main-btn secondary-btn-outline"
+                        data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="main-btn danger-btn-outline" data-bs-dismiss="modal">Eliminar</button>
                 </div>
             </form>

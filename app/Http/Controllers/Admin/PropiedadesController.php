@@ -207,7 +207,7 @@ class PropiedadesController extends Controller
         }
     }
 
-    public function propietario_agregar(Request $request): \Illuminate\Http\JsonResponse
+    public function propietario_agregar(Request $request)
     {
         $validatedData = Validator::make($request->all(), [
             'name' => 'required|string|max:100|regex:/^[A-Za-zÑñáéíóúÁÉÍÓÚ ]+$/',

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Propiedades - Citas')
+
 @section('content')
 
 <section class="table-components">
@@ -29,10 +31,12 @@
                             <div class="left">
                                 <h6 class="mb-10">{{ $titulo }}, citas</h6>
                             </div>
+                            @can('Crear Citas')
                             <div class="right">
                                 <a href="{{ route('adm.citas.group.create', $id) }}"
                                     class="main-btn primary-btn-light rounded-full btn-hover">Registrar Cita</a>
                             </div>
+                            @endcan
                         </div>
                         <div class="table-wrapper table-responsive">
                             <table id="tableUsuarios" class="display table" style="width:100%">

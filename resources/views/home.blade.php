@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Panel de control')
+
 @section('content')
 <section class="section">
   <div class="container-fluid">
@@ -78,10 +80,77 @@
           </div>
         </div>
       </div>
-      <div class=" card-style">
-        Contenido de Graficos
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card-style">
+            <canvas id="myChart" width="400" height="200"></canvas>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card-style">
+            <canvas id="propiedadesChart" width="400" height="200"></canvas>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 @endsection
+
+@push('scripts')
+<script>
+  (async () => {
+      const respuestaRaw = await fetch('{{ route('grafico_clientes_datos') }}');
+      const respuesta = await respuestaRaw.json();
+
+      const ctx = document.getElementById('myChart').getContext('2d');
+      const myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: respuesta.etiquetas,
+              datasets: [{
+                  label: 'Clientes por Mes',
+                  data: respuesta.datos,
+                  backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                  borderColor: 'rgba(255, 99, 132, 1)',
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true
+                  }
+              }
+          }
+      });
+  })();
+  
+  // Gráfico de propiedades más visitadas
+  (async () => {
+      const respuestaPropiedades = await fetch('{{ route('grafico.top.propiedades') }}');
+      const datosPropiedades = await respuestaPropiedades.json();
+
+      new Chart(document.getElementById('propiedadesChart').getContext('2d'), {
+          type: 'bar',
+          data: {
+              labels: datosPropiedades.etiquetas,
+              datasets: [{
+                  label: 'Propiedades con mas Visitas',
+                  data: datosPropiedades.datos,
+                  backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                  borderColor: 'rgba(54, 162, 235, 1)',
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              indexAxis: 'y', // Barras horizontales
+              scales: {
+                  y: { beginAtZero: true },
+                  x: { ticks: { precision: 0 } }
+              }
+          }
+      });
+  })();
+</script>
+@endpush

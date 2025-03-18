@@ -85,7 +85,9 @@
             data: JSON.stringify(data),
             
             success: function(response) {
-                var $combobox = $('#id_propietario');
+                console.log(response);
+                
+                var $combobox = $('#propietario');
                 var $option = $('<option></option>')
                     .attr('value', response.ultID)
                     .text(response.ultNombre);

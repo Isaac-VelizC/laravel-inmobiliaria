@@ -22,9 +22,11 @@
                     <li>
                         <a href="{{ route('adm.index.propiedades') }}"> Lista </a>
                     </li>
+                    @can('Crear Propiedad')   
                     <li>
                         <a href="{{ route('adm.create.propiedades') }}"> Agregar </a>
                     </li>
+                    @endcan
                     <li>
                         <a href="{{ route('adm.propietarios.index') }}"> Propietarios </a>
                     </li>
@@ -36,12 +38,15 @@
                     <span class="text">Citas</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{ route('adm.servicios.index') }}">
-                    <span class="icon mdi mdi-hammer-wrench"></span>
-                    <span class="text">Servicios</span>
-                </a>
-            </li>
+            @can('Gestion Servicios')
+                <li class="nav-item">
+                    <a href="{{ route('adm.servicios.index') }}">
+                        <span class="icon mdi mdi-hammer-wrench"></span>
+                        <span class="text">Servicios</span>
+                    </a>
+                </li>
+            @endcan
+            @can('Gestion Usuarios')
             <span class="divider">
                 <hr />
             </span>
@@ -51,6 +56,7 @@
                     <span class="text">Usuarios</span>
                 </a>
             </li>
+            @endcan
         </ul>
     </nav>
 </aside>

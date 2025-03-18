@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', $cita->name)
+
 @section('content')
 
 <section class="table-components">
@@ -26,6 +28,10 @@
                             <h6 class="mb-10">Información de la cita</h6>
                         </div>
                         <div class="right g-4">
+                            <button type="button" class="main-btn warning-btn-light rounded-full btn-hover" onclick="$('#modalCitaGrafica').modal('show')">Grafico</button>
+                            @if ($cita->status != 'concretada')
+                               <button type="button"onclick="abrirStatus({{ $cita->id }}, '{{ $cita->status }}')" class="main-btn secondary-btn-light rounded-full btn-hover">Cambiar Estado</button>
+                            @endif
                             <a href="#" class="main-btn danger-btn-light rounded-full btn-hover">Borrar</a>
                         </div>
                     </div>
@@ -38,8 +44,8 @@
                                     <li class="list-group-item"><strong>Fecha:</strong> {{ $cita->date }}</li>
                                     <li class="list-group-item"><strong>Hora:</strong> {{ $cita->time }}</li>
                                     <li class="list-group-item"><strong>Agente:</strong> {{ $agente }}</li>
-                                    <li class="list-group-item"><strong>Propiedad:</strong> {{ $cita->hacienda->name }}
-                                    </li>
+                                    <li class="list-group-item"><strong>Propiedad:</strong> {{ $cita->hacienda->name }}</li>
+                                    <li class="list-group-item"><strong>Estado:</strong> {{ $cita->status }}</li>
                                 </ul>
                             </div>
                         </div>
@@ -49,32 +55,32 @@
                                     <h5 class="mb-0">Usuarios Registrados</h5>
                                 </div>
                                 @if (count($users) > 0)
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Nombre</th>
-                                                <th>Email</th>
-                                                <th>Teléfono</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($users as $item)
-                                                <tr>
-                                                    <td>{{ $item->usuarioCita->persona->name .' '. $item->usuarioCita->persona->surnames }}</td>
-                                                    <td>{{ $item->usuarioCita->email }}</td>
-                                                    <td>{{ $item->usuarioCita->persona->phone }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Email</th>
+                                            <th>Teléfono</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($users as $item)
+                                        <tr>
+                                            <td>{{ $item->usuarioCita->persona->name .' '.
+                                                $item->usuarioCita->persona->surnames }}</td>
+                                            <td>{{ $item->usuarioCita->email }}</td>
+                                            <td>{{ $item->usuarioCita->persona->phone }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                                 @else
-                                    <div class="text-center">
-                                        <h5>No hay usuarios registrados aún</h5>
-                                    </div>
+                                <div class="text-center">
+                                    <h5>No hay usuarios registrados aún</h5>
+                                </div>
                                 @endif
                             </div>
                         </div>
-                        
                     </div>
                 </div>
             </div>
@@ -82,4 +88,6 @@
         <!-- ========== tables-wrapper end ========== -->
     </div>
 </section>
+@include('admin.citas.modal-status')
+@include('admin.citas.modal_grafico')
 @endsection

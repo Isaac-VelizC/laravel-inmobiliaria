@@ -65,7 +65,7 @@ class DatosSeeder extends Seeder
         User::create([
             'name' => 'Maria',
             'email' => 'maria@gmail.com',
-            'password' => bcrypt('MariAAdmin'),
+            'password' => bcrypt('MariaAdmin'),
             'rol' => 'Admin'
         ]);
 

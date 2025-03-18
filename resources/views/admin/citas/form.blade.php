@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Formulario de citas')
+
 @section('content')
 
 <section class="tab-components">
@@ -50,8 +52,9 @@
                                         </select>
                                         <label for="time">Hora</label>
                                         @if ($group)
-                                        <span class="text-warning">Horario: {{ $group->time }}</span>
+                                        <span class="text-success">Horario: {{ $group->time }}</span>
                                         @endif
+                                        <span class="text-warning"><strong>Para seleccionar la hora primero selecciona una fecha</strong></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-4">

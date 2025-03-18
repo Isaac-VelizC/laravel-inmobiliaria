@@ -6,7 +6,10 @@ use App\Helpers\Helper;
 use App\Models\Agente;
 use App\Models\CitaGroup;
 use App\Models\Propiedade;
+use App\Models\Respuesta;
+use App\Models\Resultado;
 use App\Models\UserCitaGroup;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -171,8 +174,24 @@ class CitaGroupController extends Controller
         $cita = CitaGroup::with(['guia.usuario.persona', 'hacienda', 'userCitas'])->findOrFail($id);
         $agente = $cita->guia->usuario->persona->name . ' ' . $cita->guia->usuario->persona->surnames;
         $users = UserCitaGroup::with(['usuarioCita.persona'])->where('group', $id)->get();
-        return view('admin.citas.show', compact('cita', 'agente', 'users'));
+
+        /**Datos para los graficos  */
+        $resultados = Resultado::with(['pregunta', 'respuestaSelect'])
+            ->where('cita_id', $id)
+            ->get();
+
+        $respuestas = Respuesta::all()->pluck('question');
+
+        $frecuencias = [];
+        foreach ($respuestas as $respuesta) {
+            $frecuencias[$respuesta] = $resultados->filter(function ($resultado) use ($respuesta) {
+                return $resultado->respuestaSelect->question === $respuesta;
+            })->count();
+        }
+
+        return view('admin.citas.show', compact('cita', 'agente', 'users', 'respuestas', 'frecuencias'));
     }
+
 
     public function obtenerHorarios(Request $request)
     {
@@ -196,5 +215,34 @@ class CitaGroupController extends Controller
         }
 
         return response()->json($horarios);
+    }
+
+    public function citaStatusUpdate(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'status' => 'required|in:pendiente,confirmada,cancelada,concretada'
+        ], [
+            'status.in' => 'Estado inválido. Opciones permitidas: pendiente, confirmada, cancelada, concretada'
+        ]);
+
+        try {
+            $cita = CitaGroup::findOrFail($id);
+            $now = Carbon::now()->setTimezone(config('app.timezone'));
+            if ($validatedData['status'] == 'concretada') {
+                if ($now->lt($cita->date)) {
+                    $errorMessage = "No puedes concretar una cita antes de su fecha programada: "
+                        . $cita->date;
+                    return redirect()->back()->with('error', $errorMessage);
+                }
+                if ($cita->status == 'cancelada') {
+                    return redirect()->back()->with('error', 'No se puede concretar una cita cancelada');
+                }
+            }
+            $cita->update($validatedData);
+
+            return redirect()->back()->with('success', 'Estado cambiado con éxito');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Hubo un problema: ' . $e->getMessage());
+        }
     }
 }

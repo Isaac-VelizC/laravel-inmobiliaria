@@ -1,5 +1,7 @@
 @extends('layouts.client.app')
 
+@section('title', 'Sobre nosotros')
+
 @section('content')
   <!--/ Intro Single star /-->
   <section class="intro-single">
@@ -14,10 +16,10 @@
           <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
             <ol class="breadcrumb">
               <li class="breadcrumb-item">
-                <a href="#">Home</a>
+                <a href="{{ url('/') }}">Inicio</a>
               </li>
               <li class="breadcrumb-item active" aria-current="page">
-                About
+                Nosotros
               </li>
             </ol>
           </nav>
@@ -36,7 +38,7 @@
             <img src="{{ asset('assets/img/slide-about-1.jpg')}}" alt="" class="img-fluid">
           </div>
           <div class="sinse-box">
-            <h3 class="sinse-title">EstateAgency
+            <h3 class="sinse-title">Soluciones Inmobiliarias
               <span></span>
               <br> Sinse 2017</h3>
             <p>Art & Creative</p>
@@ -49,7 +51,7 @@
             </div>
             <div class="col-lg-2  d-none d-lg-block">
               <div class="title-vertical d-flex justify-content-start">
-                <span>EstateAgency Exclusive Property</span>
+                <span>Agencia Inmobiliaria Propiedad Exclusiva</span>
               </div>
             </div>
             <div class="col-md-6 col-lg-5 section-md-t3">

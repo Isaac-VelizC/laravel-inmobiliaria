@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', ' Servicios - Lista')
+
 @section('content')
 
 <section class="table-components">

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\CitaGroupController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\EncuestaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PropiedadesController as ControllersPropiedadesController;
@@ -17,7 +18,7 @@ Route::get('/',  [ClientController::class, 'index'])->name('welcome');
 
 Auth::routes();
 
-Route::group(['middleware' => ['checkRole:Admin']], function () {
+Route::group(['middleware' => ['checkRole:Admin,Agente']], function () {
     Route::prefix('admin')->group(function() {
         Route::get('/home', [HomeController::class, 'index'])->name('home');
         ///Propiedades
@@ -65,6 +66,7 @@ Route::group(['middleware' => ['checkRole:Admin']], function () {
         Route::get('/citas/group/{id?}/show', [CitaGroupController::class, 'show'])->name('adm.citas.group.show');
         Route::get('/citas/group/{id?}/edit', [CitaGroupController::class, 'edit'])->name('adm.citas.group.edit');
         Route::put('/citas/group/update/{id}', [CitaGroupController::class, 'update'])->name('adm.citas.group.update');
+        Route::put('/citas/group/update/status/{id}', [CitaGroupController::class, 'citaStatusUpdate'])->name('adm.citas.group.status');
         /// Servicios
         Route::get('/servicios/lista', [ServicioController::class, 'index'])->name('adm.servicios.index');
         Route::get('/servicios/group/ajax', [ServicioController::class, 'ajax_servicios_group'])->name('adm.servicios.group.ajax');
@@ -75,6 +77,12 @@ Route::group(['middleware' => ['checkRole:Admin']], function () {
         
         Route::post('/servicios/agregar_nuevo', [ServicioController::class, 'store'])->name('adm.servicios.agregar_nuevo');
         Route::post('/servicios/agregar_imagen', [ServicioController::class, 'store_imagen_servicio'])->name('adm.servicios.agregar_imagen');
+
+        /// Graficos
+        Route::get('/grafico_clientes/datos', [EncuestaController::class, 'obtenerDatosGrafico'])->name('grafico_clientes_datos');
+        Route::get('/citas/encuesta/graficas/{id}', [EncuestaController::class, 'admin_cita_encuesta_graficas'])->name('adm.citas.encuesta.graficas');
+        Route::get('/grafico-top-propiedades', [EncuestaController::class, 'obtenerTopPropiedades'])->name('grafico.top.propiedades');
+
 
         /// Servicios
         //
@@ -99,7 +107,6 @@ Route::group(['middleware' => ['checkRole:Admin']], function () {
         //Route::get('/citas/{id?}/edit', [CitaController::class, 'edit'])->name('adm.citas.edit');
         //Route::put('/citas/update/{id}', [CitaController::class, 'update_admin'])->name('adm.citas.update');
         //Route::post('/citas/encuesta', [CitaController::class, 'admin_cita_encuesta'])->name('adm.citas.encuesta');
-        //Route::get('/citas/encuesta/graficas', [CitaController::class, 'admin_cita_encuesta_graficas'])->name('adm.citas.encuesta.graficas');
     });
 });
 
@@ -117,8 +124,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/usuario/citas/todos', [CitaController::class, 'all_citas_user'])->name('all.citas.user');
     Route::post('/usuario/citas/agregar_nuevo', [CitaController::class, 'store'])->name('usuario.citas.agregar_nuevo');
 
-    Route::get('/usuario/citas/encuesta/{id?}/{idp?}', [CitaController::class, 'encuesta'])->name('usuario.citas.encuesta');
-    //Route::post('/usuario/citas/encuesta_respuesta', [RespuestaController::class, 'store'])->name('usuario.citas.encuesta_respuesta');
+    Route::get('/usuario/citas/encuesta/{citaId?}/{propId?}', [CitaController::class, 'encuesta'])->name('usuario.citas.encuesta');
+    Route::post('/usuario/citas/encuesta_respuesta', [CitaController::class, 'storeRespuestas'])->name('usuario.citas.encuesta_respuesta');
 });
 
 Route::get('propieades', [ControllersPropiedadesController::class, 'index'])->name('home.propiedades');

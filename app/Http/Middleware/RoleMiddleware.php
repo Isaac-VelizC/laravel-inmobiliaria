@@ -9,16 +9,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next, $role): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        if (!Auth::check() || !Auth::user()->hasRole($role)) {
+        // Verificar si el usuario está autenticado
+        if (!Auth::check()) {
             return redirect()->route('unauthorized');
         }
+
+        // Verificar si el usuario tiene al menos uno de los roles especificados
+        if (!Auth::user()->hasAnyRole($roles)) {
+            return redirect()->route('unauthorized');
+        }
+
         return $next($request);
     }
 }

@@ -1,5 +1,7 @@
 @extends('layouts.client.app')
 
+@section('title', 'Inicio')
+
 @section('content')
 @php
 use App\Models\Image;
