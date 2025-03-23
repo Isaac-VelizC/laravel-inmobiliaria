@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Soluciones Inmobiliarias - Encuesta</title>
-    <meta name="author" content="aisak">
-    <meta name="description" content="aisak - Real Estate Apartment Complex HTML Template">
-    <meta name="keywords" content="aisak - Real Estate Apartment Complex HTML Template">
+    <meta name="author" content="soluciones inmobiliarias">
+    <meta name="description" content="soluciones inmobiliarias - Real Estate Apartment Complex HTML Template">
+    <meta name="keywords" content="soluciones inmobiliarias - Real Estate Apartment Complex HTML Template">
     <meta name="robots" content="INDEX,FOLLOW">
 
     <!-- Mobile Specific Metas -->

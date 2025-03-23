@@ -6,8 +6,8 @@
           <div class="copyright text-center text-md-start">
             <p class="text-sm">
               Desarrollado por
-              <a href="https://aisakveliz.netlify.app" rel="nofollow" target="_blank">
-                AIsakVeliz
+              <a href="{{ url('/') }}" rel="nofollow" target="_blank">
+                Soluciones Inmobiliarias
               </a>
             </p>
           </div>
