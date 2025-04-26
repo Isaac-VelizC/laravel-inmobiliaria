@@ -14,7 +14,8 @@
       @guest
       <a href="{{ route('login') }}"><i class="bi bi-person"></i></a>
       @else
-      <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+      <a href="{{ route('logout') }}"
+        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         <i class="bi bi-box-arrow-right"></i>
       </a>
       <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -42,6 +43,11 @@
           <a class="nav-link {{ Request::is('nosotros') ? 'active' : '' }}"
             href="{{ route('home.nosotros') }}">Nosotros</a>
         </li>
+        @role('Cliente')
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('perfil') ? 'active' : '' }}" href="{{ route('perfil') }}">Perfil</a>
+        </li>
+        @endrole
       </ul>
     </div>
     @guest

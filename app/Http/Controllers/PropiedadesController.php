@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Image;
 use App\Models\Propiedade;
+use App\Models\TipoPropiedad;
 use App\Models\Visita;
 use Illuminate\Http\Request;
 
@@ -11,18 +12,60 @@ class PropiedadesController extends Controller
 {
     public function index(Request $request)
     {
-        $propiedades = Propiedade::with(['tipoPropiedad'])
-        ->latest()
-        ->paginate(10);
-        return view('web.propiedades', compact('propiedades'));
+        $tipos = TipoPropiedad::all();
+        $ciudades = $this->ciudadesBolivia();
+        $propiedades = Propiedade::with(['tipoPropiedad'])->where('status', 'Disponible')
+            ->latest()
+            ->paginate(10);
+        return view('web.propiedades', compact('propiedades', 'tipos', 'ciudades'));
     }
-    
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    private function ciudadesBolivia()
     {
-        //
+        return [
+            "La Paz" => "La Paz",
+            "Chuquisaca" => "Sucre",
+            "Cochabamba" => "Cochabamba",
+            "Santa Cruz" => "Santa Cruz de la Sierra",
+            "Oruro" => "Oruro",
+            "Potosí" => "Potosí",
+            "Tarija" => "Tarija",
+            "Pando" => "Cobija",
+            "Beni" => "Trinidad"
+        ];
+    }
+
+    public function buscar(Request $request)
+    {
+        // Obtener los parámetros de búsqueda
+        $query = $request->input('query');
+        $tipo_id = $request->input('tipo_id');
+        $ciudad = $request->input('ciudad');
+
+        // Construir la consulta
+        $propiedades = Propiedade::query();
+
+        if ($query) {
+            $propiedades->where('name', 'LIKE', "%{$query}%")
+                ->orWhere('description', 'LIKE', "%{$query}%");
+        }
+
+        if ($tipo_id) {
+            $propiedades->where('tipo_propiedad', $tipo_id);
+        }
+
+        if ($ciudad) {
+            $propiedades->where('city', $ciudad);
+        }
+
+        // Obtener las propiedades filtradas
+        $propiedades = $propiedades->paginate(10); // Cambia el número según lo que necesites
+
+        // Obtener tipos y ciudades para el formulario
+        $tipos = TipoPropiedad::all(); // Asegúrate de tener este modelo
+        $ciudades = $this->ciudadesBolivia();
+
+        return view('web.propiedades', compact('propiedades', 'tipos', 'ciudades', 'query'));
     }
 
     /**

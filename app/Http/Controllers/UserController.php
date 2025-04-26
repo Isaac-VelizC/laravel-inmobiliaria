@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function profilePage()
     {
-        //
+        //dd(Auth::user());
+        return view('web.perfil');
     }
 
     /**
@@ -51,7 +52,42 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name'  => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($id)],
+        ]);
+
+        $user = User::findOrFail($id);
+
+        $user->fill($validated);
+
+        if ($user->isDirty()) {
+            $user->save();
+        }
+
+        return redirect()->back()->with('success', 'Usuario actualizado correctamente.');
+    }
+
+    // Método para cambiar la contraseña
+    public function changePassword(Request $request, $id)
+    {
+        $request->validate([
+            'current_password' => 'required|string',
+            'new_password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        // Verificar la contraseña actual
+        if (!Hash::check($request->current_password, $user->password)) {
+            return redirect()->back()->withErrors(['current_password' => 'La contraseña actual es incorrecta.']);
+        }
+
+        // Actualizar la contraseña
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->back()->with('success', 'Contraseña cambiada correctamente.');
     }
 
     /**

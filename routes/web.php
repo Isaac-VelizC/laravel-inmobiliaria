@@ -11,6 +11,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PropiedadesController as ControllersPropiedadesController;
 use App\Http\Controllers\PropietarioController;
 use App\Http\Controllers\ServicioController;
+use App\Http\Controllers\UserController as ControllersUserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -111,6 +112,11 @@ Route::group(['middleware' => ['checkRole:Admin,Agente']], function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/perfil', [ControllersUserController::class, 'profilePage'])->name('perfil');
+    Route::put('/user/update/{id}', [ControllersUserController::class, 'update'])->name('user.update');
+    Route::post('/user/change-password/{id}', [ControllersUserController::class, 'changePassword'])->name('user.changePassword');
+    Route::get('/propiedades/buscar', [ControllersPropiedadesController::class, 'buscar'])->name('propiedades.buscar');
+
     Route::get('/usuario/citas/ver/{id?}', [CitaController::class, 'index'])->name('usuario.citas.index');
     Route::get('/usuario/cita/programar/{id}', [CitaController::class, 'storeCita'])->name('programar.cita');
 
