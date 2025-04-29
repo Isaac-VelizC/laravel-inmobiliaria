@@ -80,16 +80,14 @@
                                         {{ session('success') }}
                                     </div>
                                     @endif
-                                    <form action="{{ route('adm.servicios.agregar_imagen') }}" method="POST"
-                                        enctype="multipart/form-data">
+                                    <form action="{{ route('adm.servicios.agregar_imagen') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <input type="hidden" name="id_servicio" value="{{ $servicio->id }}">
 
                                         <label class="form-label">Subir Imágenes</label>
-                                        <input class="form-control" type="file" id="imagenes" name="imagenes[]"
-                                            multiple>
+                                        <input class="form-control" type="file" id="imagenes" name="imagenes[]" multiple>
                                         <div class="mt-3 text-center">
-                                            <button type="submit" class=" main-btn primary-btn-outline">Guardar</button>
+                                            <button type="submit" class="main-btn primary-btn-outline">Guardar</button>
                                         </div>
                                     </form>
                                     <div class="row">
@@ -97,11 +95,8 @@
                                         <div class="col-md-3 mb-3">
                                             <div class="card">
                                                 <img class="card-img-top"
-                                                    src="{{ asset('storage/' . $imagen->imagen) }}" alt="Imagen"
+                                                    src="{{ asset('storage/' . $imagen->path) }}" alt="{{ $imagen->id }}"
                                                     height="70" style="object-fit: cover;">
-                                                <div class="card-body d-flex justify-content-between">
-                                                    <h5 class="card-title">{{ ucfirst($imagen->tipo) }}</h5>
-                                                </div>
                                             </div>
                                         </div>
                                         @endforeach

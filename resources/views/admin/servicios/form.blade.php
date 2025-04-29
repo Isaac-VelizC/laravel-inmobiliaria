@@ -195,10 +195,6 @@
                                     <td class="text-sm">{{ $item->detail }}</td>
                                     <td><span class="badge bg-primary">{{ $item->status }}</span></td>
                                     <td class="action justify-content-end g-4">
-                                        <!--a-- class="badge bg-danger" href="{{ route('adm.servicios.editar', $item->id) }}"
-                                            aria-label="Editar servicio">
-                                            <i class="mdi mdi-pencil-outline"></i>
-                                        </!--a-->
                                         <a class="badge bg-info" href="{{ route('adm.servicios.show', $item->id) }}"
                                             aria-label="Ver detalles del servicio">
                                             <i class="mdi mdi-information-outline"></i>

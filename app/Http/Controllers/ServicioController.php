@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ImagenServicio;
 use App\Models\Propiedade;
 use App\Models\Servicio;
 use App\Models\ServiciosTipo;
@@ -108,6 +109,33 @@ class ServicioController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        /// delete service
+    }
+
+    /**
+     * Subida de imagenes de prueba para los servicios
+     */
+    public function store_imagen_servicio(Request $request)
+    {
+        $request->validate([
+            'id_servicio' => 'required|integer|exists:servicios,id',
+            'imagenes' => 'required|array',
+            'imagenes.*' => 'image|max:2048', // Cada archivo debe ser una imagen y máximo 2MB
+        ]);
+        try {
+            foreach ($request->file('imagenes') as $file) {
+                // Guardar imagen en storage/app/public/servicios (puedes cambiar la ruta)
+                $path = $file->store('servicios', 'public');
+                // Crear registro en la base de datos con la ruta y el id_servicio
+                ImagenServicio::create([
+                    'path' => $path,
+                    'id_servicio' => $request->id_servicio,
+                ]);
+            }
+
+            return back()->with('success', 'Imágenes guardadas correctamente.');
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Ocurrió un error, vuelve a intentarlo. Detalle: ' . $th->getMessage());
+        }
     }
 }

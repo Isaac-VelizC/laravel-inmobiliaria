@@ -84,7 +84,7 @@
 <script>
     $(document).ready(function() {
         $('#tableUsuarios').DataTable({
-            ajax: "{{ route('adm.citas.group.ajax') }}",
+            ajax: "{{ route('adm.citas.group.ajax.propiedad', $id) }}",
             columns: [
                 { data: "name", name: "name", render: function(data) {
                     return `<p>${data}</p>`;

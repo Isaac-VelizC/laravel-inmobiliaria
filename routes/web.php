@@ -60,6 +60,7 @@ Route::group(['middleware' => ['checkRole:Admin,Agente']], function () {
         Route::post('/roles/asignar-permisos', [UserController::class, 'asignarPermisos'])->name('roles.asignar.permisos');
         ///Citas Group
         Route::get('/citas/group', [CitaGroupController::class, 'index'])->name('adm.citas.group.index');
+        Route::get('/citas/group/ajax/propiedad/{id}', [CitaGroupController::class, 'ajax_citas_group_propiedad'])->name('adm.citas.group.ajax.propiedad');
         Route::get('/citas/group/ajax', [CitaGroupController::class, 'ajax_citas_group'])->name('adm.citas.group.ajax');
         Route::get('/citas/horarios/ajax', [CitaGroupController::class, 'obtenerHorarios'])->name('obtenerHorarios');
         Route::get('/citas/group/create/{id}', [CitaGroupController::class, 'create'])->name('adm.citas.group.create');

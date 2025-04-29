@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Helpers\Helper;
 use App\Models\Agente;
 use App\Models\CitaGroup;
-use App\Models\Propiedade;
 use App\Models\Respuesta;
 use App\Models\Resultado;
 use App\Models\UserCitaGroup;
@@ -23,7 +22,23 @@ class CitaGroupController extends Controller
 
     public function ajax_citas_group()
     {
-        $citas = CitaGroup::with(['guia.usuario', 'hacienda', 'userCitas'])->latest()->get();
+        return $this->getCitasGroupData();
+    }
+
+    public function ajax_citas_group_propiedad($id)
+    {
+        return $this->getCitasGroupData($id);
+    }
+
+    private function getCitasGroupData($propiedadId = null)
+    {
+        $query = CitaGroup::with(['guia.usuario', 'hacienda', 'userCitas'])->latest();
+
+        if ($propiedadId !== null) {
+            $query->where('propiedad', $propiedadId);
+        }
+
+        $citas = $query->get();
 
         $data = $citas->map(function ($cita) {
             return [
@@ -33,7 +48,7 @@ class CitaGroupController extends Controller
                 'cantidad' => $cita->cantidad,
                 'agente' => $cita->guia?->usuario?->name ?? 'Sin asignar',
                 'propiedad' => $cita->hacienda?->name ?? 'No disponible',
-                'registrados' => $cita->userCitas->count(), // Método más eficiente para contar
+                'registrados' => $cita->userCitas->count(),
                 'status' => $cita->status,
             ];
         });

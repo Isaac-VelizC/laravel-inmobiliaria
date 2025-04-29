@@ -65,7 +65,7 @@
           <div class="card-style">
             <div class="d-flex align-items-start justify-content-between">
               <div class="content-left">
-                <span>Serviciso</span>
+                <span>Servicios</span>
                 <div class="d-flex align-items-end mt-2">
                   <h3 class="mb-0 me-2">{{$countServicios}}</h3>
                   <small>Total Pendientes</small>

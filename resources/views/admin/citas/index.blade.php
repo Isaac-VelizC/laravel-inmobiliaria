@@ -11,7 +11,6 @@
             ['label' => 'Panel', 'url' => route('home')],
             ['label' => 'Citas', 'url' => null]
         ]" />
-
         <!-- ========== title-wrapper end ========== -->
 
         @if (session('success'))

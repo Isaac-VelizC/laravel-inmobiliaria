@@ -127,7 +127,7 @@
                     </div>
                     <div class="pt-4">
                         <button type="submit" class="btn btn-primary me-sm-3 me-1">Enviar</button>
-                        <button type="reset" class="btn btn-outline-secondary">Cancelar</button>
+                        <a href="{{ route('adm.servicios.show', $servicio->id) }}" class="btn btn-outline-secondary">Cancelar</a>
                     </div>
                 </form>
             </div>
