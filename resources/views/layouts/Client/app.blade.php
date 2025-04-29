@@ -10,8 +10,9 @@
 
     <title>@yield('title') | {{ config('variables.templateSuffix') ? config('variables.templateSuffix') : 'TemplateSuffix' }}</title>
     <!-- Favicons -->
-    <link href="imgs/logo.svg" rel="icon">
-    <link href="imgs/logo.svg" rel="apple-touch-icon">
+    <link rel="shortcut icon" href="{{ asset('imgs/logo.svg')}}" type="image/x-icon" />
+    <link href="{{ asset('imgs/logo.svg')}}" rel="icon">
+    <link href="{{ asset('imgs/logo.svg')}}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
