@@ -18,13 +18,13 @@ class ServicioController extends Controller
 
     public function ajax_servicios_group()
     {
-        $items = Servicio::with(['usuario.persona', 'tipoServicio'])->get();
+        $items = Servicio::with(['usuario.persona'])->get();
         // Transformar los datos de los servicios
         $data = $items->map(function ($item) {
             return [
                 'id' => $item->id,
                 'client' => $item->usuario->persona->name . ' ' . $item->usuario->persona->surnames,
-                'tipo_servicio' => $item->tipoServicio->name,
+                'tipo_servicio' => $item->detail,
                 'date' => $item->date_start,
                 'status' => $item->status,
             ];
@@ -36,7 +36,7 @@ class ServicioController extends Controller
             ->rawColumns(['action'])
             ->toJson();
     }
-    
+
     public function create($id)
     {
         $item = Propiedade::findOrFail($id);
@@ -44,9 +44,8 @@ class ServicioController extends Controller
             return redirect()->back()->with('error', 'No existe la propiedad');
         }
         $usuarios = User::with('persona')->where('rol', 'Cliente')->get();
-        $tipoServicio = ServiciosTipo::all();
-        $servicios = Servicio::with(['usuario.persona', 'tipoServicio'])->where('id_propiedad', $id)->get();
-        return view('admin.servicios.form', ['usuarios' => $usuarios, 'tipoServicio' => $tipoServicio, 'propiedadID' => $item, 'servicios' => $servicios]);
+        $servicios = Servicio::with(['usuario.persona'])->where('id_propiedad', $id)->get();
+        return view('admin.servicios.form', ['usuarios' => $usuarios, 'propiedadID' => $item, 'servicios' => $servicios]);
     }
 
     public function store(Request $request)
@@ -58,15 +57,11 @@ class ServicioController extends Controller
                 ->withInput();
         }
         try {
-            $detail = implode('|', $request->detail);
             $data = $validator->validated();
-            $data['detail'] = $detail;
             Servicio::create($data);
-            //$propiedad = Propiedades::findOrFail($request->id_propiedad);
-    
             return back()->with('success', 'Servicio guardado exitosamente.');
         } catch (\Throwable $th) {
-            return back()->with('error', 'Ocurrio un error, vuelve a intentarlo '. $th->getMessage());
+            return back()->with('error', 'Ocurrio un error, vuelve a intentarlo ' . $th->getMessage());
         }
     }
 
@@ -75,7 +70,7 @@ class ServicioController extends Controller
      */
     public function show(string $id)
     {
-        $servicio = Servicio::with(['usuario.persona', 'imagenes', 'tipoServicio'])->find($id);
+        $servicio = Servicio::with(['usuario.persona', 'imagenes'])->find($id);
         if (!$servicio) {
             return redirect()->back()->with('error', 'No se encontró el servicio');
         }
@@ -87,7 +82,9 @@ class ServicioController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $usuarios = User::with('persona')->where('rol', 'Cliente')->get();
+        $servicio = Servicio::findOrFail($id);
+        return view('admin.servicios.edit', compact('servicio', 'usuarios'));
     }
 
     /**
@@ -95,7 +92,15 @@ class ServicioController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->validate(Servicio::$rulesupdate);
+
+        try {
+            $servicio = Servicio::findOrFail($id);
+            $servicio->update($data);
+            return redirect()->route('adm.servicios.show', $id)->with('success', 'Servicio guardado exitosamente.');
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Ocurrió un error, vuelve a intentarlo. Detalle: ' . $th->getMessage());
+        }
     }
 
     /**

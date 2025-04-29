@@ -73,33 +73,18 @@ Route::group(['middleware' => ['checkRole:Admin,Agente']], function () {
         Route::get('/servicios/group/ajax', [ServicioController::class, 'ajax_servicios_group'])->name('adm.servicios.group.ajax');
         Route::get('/servicios/agregar/{id?}', [ServicioController::class, 'create'])->name('adm.servicios.agregar');
         Route::get('/servicios/show/{id}', [ServicioController::class, 'show'])->name('adm.servicios.show');
-        
         Route::get('/servicios/editar/{id?}', [ServicioController::class, 'edit'])->name('adm.servicios.editar');
-        
+        Route::put('/servicios/editar_existente/{id}', [ServicioController::class, 'update'])->name('adm.servicios.editar_existente');
         Route::post('/servicios/agregar_nuevo', [ServicioController::class, 'store'])->name('adm.servicios.agregar_nuevo');
         Route::post('/servicios/agregar_imagen', [ServicioController::class, 'store_imagen_servicio'])->name('adm.servicios.agregar_imagen');
-
         /// Graficos
         Route::get('/grafico_clientes/datos', [EncuestaController::class, 'obtenerDatosGrafico'])->name('grafico_clientes_datos');
         Route::get('/citas/encuesta/graficas/{id}', [EncuestaController::class, 'admin_cita_encuesta_graficas'])->name('adm.citas.encuesta.graficas');
         Route::get('/grafico-top-propiedades', [EncuestaController::class, 'obtenerTopPropiedades'])->name('grafico.top.propiedades');
-
-
+        /// Reportes 
+        Route::get('/reportes/citas', [HomeController::class, 'indexReportesPage'])->name('adm.reportes.citas');
+        Route::post('/reportes/citas/generar', [HomeController::class, 'generarReporte'])->name('adm.reportes.citas.generar');
         /// Servicios
-        //
-        
-        //Route::resource('/', AdminController::class)->names('admin');
-        //Route::get('/', [AdminController::class, 'index'])->name('adm.home');
-        //Route::get('/propiedades/imagenes/{id}/ver', [ImagenController::class, 'showImage'])->name('adm.propiedades.imagenes.showImage');
-        //Citas proiedades
-        //servicios
-        //Route::get('/servicios/lista/solicitudes/{id}', [PropiedadesController::class, 'lista_solicitudes'])->name('adm.servicio.solicitud');
-        //Route::get('/servicios/seguimiento/{id?}', [ServicioController::class, 'seguimiento'])->name('adm.servicios.seguimiento');
-        //Route::get('/servicios/lista/ajax', [ServicioController::class, 'ajax_servicios'])->name('adm.servicios.ajax.index');
-        //Route::get('/servicios/lista/propiedad/{id}', [ServicioController::class, 'ajax_servicios_propiedade'])->name('adm.servicios.ajax.propiedad.list');
-        //
-        //Route::post('/servicios/editar_existente', [ServicioController::class, 'update'])->name('adm.servicios.editar_existente');
-        //Route::post('/presupuestos/agregar_nuevo', [PresupuestoController::class, 'store'])->name('adm.presupuesto.agregar_nuevo');
         //Citas
         //Route::get('/citas/lista', [CitaController::class, 'index_admin'])->name('adm.citas.index');
         //Route::get('/citas/usuario/{id?}', [CitaController::class, 'index_admin_user'])->name('adm.citas.usuarios');

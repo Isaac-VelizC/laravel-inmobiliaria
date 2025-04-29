@@ -48,7 +48,7 @@
                                 <div class="card-body">
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item"><strong>Tipo de Servicio:</strong> {{
-                                            $servicio->tipoServicio->name }}</li>
+                                            $servicio->detail }}</li>
                                         <li class="list-group-item"><strong>Dirección:</strong> {{
                                             $servicio->propiedad->address }}</li>
                                         <li class="list-group-item"><strong>Detalles:</strong> {{ $servicio->detail }}

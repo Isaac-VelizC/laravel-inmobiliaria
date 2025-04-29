@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agente;
 use App\Models\CitaGroup;
 use App\Models\Propiedade;
 use App\Models\Servicio;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -32,5 +34,57 @@ class HomeController extends Controller
         $countServicios = Servicio::where('status', 'pendiente')->count();
         $countCitas = CitaGroup::where('status', 'pendiente')->count();
         return view('home', compact('countPropiedades', 'countUsers', 'countServicios', 'countCitas'));
+    }
+
+    /**
+     * Reportes de citas
+     */
+    public function indexReportesPage()
+    {
+        $propiedades = Propiedade::all();
+        $agentes = Agente::with('usuario.persona')->get();
+        return view('admin.reports.index', compact('propiedades', 'agentes'));
+    }
+
+    public function generarReporte(Request $request)
+    {
+        $query = CitaGroup::with([
+            'hacienda' => function ($q) {
+                $q->select('id', 'name');
+            },
+            'guia.usuario' => function ($q) {
+                $q->select('id', 'name');
+            }
+        ])
+            ->when($request->report_month, function ($q, $month) {
+                return $q->whereYear('date', Carbon::parse($month)->year)
+                    ->whereMonth('date', Carbon::parse($month)->month);
+            })
+            ->when($request->date_from, function ($q, $date) {
+                return $q->where('date', '>=', $date);
+            })
+            ->when($request->date_to, function ($q, $date) {
+                return $q->where('date', '<=', $date);
+            })
+            ->when($request->propiedad, function ($q, $propiedad) {
+                return $q->where('propiedad', $propiedad);
+            })
+            ->when($request->agente_report, function ($q, $agente) {
+                return $q->where('agente', $agente);
+            })
+            ->when($request->status, function ($q, $status) {
+                return $q->where('status', $status);
+            })
+            ->orderBy('date', 'desc')
+            ->orderBy('time', 'asc');
+
+        $citas = $query->paginate(20);
+
+        return view('admin.reports.index', [
+            'citas' => $citas,
+            'filtros' => $request->all(),
+            'propiedades' => Propiedade::all(),
+            'agentes' => Agente::with('usuario.persona')->get(),
+        ]);
     }
 }

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreign('id_solicitud')->references('id')->on('solicitud_servicios')->onDelete('cascade');
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('tipo_servicio');
+            $table->unsignedBigInteger('tipo_servicio')->nullable();
             $table->foreign('tipo_servicio')->references('id')->on('servicios_tipos')->onDelete('cascade');
             $table->unsignedBigInteger('id_propiedad');
             $table->foreign('id_propiedad')->references('id')->on('propiedades')->onDelete('cascade');

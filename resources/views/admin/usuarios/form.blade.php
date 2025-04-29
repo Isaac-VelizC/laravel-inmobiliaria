@@ -32,7 +32,7 @@
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-floating form-floating-outline">
                                         <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Juan"
-                                            value="{{ old('name', $usuario->persona->name ?? '') }}" />
+                                            value="{{ old('name', $usuario->persona->name ?? '') }}" autocomplete="off" />
                                         <label for="name">Nombre del Usuario</label>
                                         @error('name') <span class="invalid-feedback">{{ $message }}</span> @enderror
                                     </div>
@@ -41,7 +41,7 @@
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-floating form-floating-outline">
                                         <input type="text" id="surnames" name="surnames" class="form-control @error('surnames') is-invalid @enderror"
-                                            placeholder="Perez" value="{{ old('surnames', $usuario->persona->surnames ?? '') }}" />
+                                            placeholder="Perez" value="{{ old('surnames', $usuario->persona->surnames ?? '') }}" autocomplete="nope" />
                                         <label for="surnames">Apellidos</label>
                                         @error('surnames') <span class="invalid-feedback">{{ $message }}</span> @enderror
                                     </div>
@@ -50,7 +50,7 @@
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-floating form-floating-outline">
                                         <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                                            placeholder="********" />
+                                            placeholder="********" autocomplete="new-password"/>
                                         <label for="password">Contraseña</label>
                                         @if ($usuario)
                                             <span class="text-warning">Solo Ingresar la contraseña si es necesario</span>
@@ -62,7 +62,7 @@
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-floating form-floating-outline">
                                         <input type="number" id="phone" name="phone" class="form-control @error('phone') is-invalid @enderror"
-                                            placeholder="7777777" value="{{ old('phone', $usuario->persona->phone ?? '') }}" />
+                                            placeholder="7777777" value="{{ old('phone', $usuario->persona->phone ?? '') }}" autocomplete="off" />
                                         <label for="phone">Teléfono</label>
                                         @error('phone') <span class="invalid-feedback">{{ $message }}</span> @enderror
                                     </div>
@@ -80,7 +80,7 @@
                                 <div class="col-md-6 col-lg-4">
                                     <div class="form-floating form-floating-outline">
                                         <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                                            placeholder="juan@gmail.com" value="{{ old('email', $usuario->email ?? '') }}" />
+                                            placeholder="juan@gmail.com" value="{{ old('email', $usuario->email ?? '') }}" autocomplete="nope"/>
                                         <label for="email">Correo</label>
                                         @error('email') <span class="invalid-feedback">{{ $message }}</span> @enderror
                                     </div>

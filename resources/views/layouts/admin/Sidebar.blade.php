@@ -56,6 +56,12 @@
                     <span class="text">Usuarios</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('adm.reportes.citas') }}">
+                    <span class="icon mdi mdi-file-chart"></span>
+                    <span class="text">Reportes</span>
+                </a>
+            </li>
             @endcan
         </ul>
     </nav>

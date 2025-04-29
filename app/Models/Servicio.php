@@ -26,8 +26,8 @@ class Servicio extends Model
     ];
 
     public static $rules = [
-        'tipo_servicio' => 'required|integer|exists:servicios_tipos,id',
-        'detail' => 'required|array',
+        //'tipo_servicio' => 'required|integer|exists:servicios_tipos,id',
+        'detail' => 'required|string|max:100',
         'worker' => 'required|string|max:100',
         'description' => 'nullable|string',
         'date_start' => 'required|date|after_or_equal:today',
@@ -39,8 +39,8 @@ class Servicio extends Model
     ];
 
     public static $rulesupdate = [
-        'tipo_servicio' => 'required|integer|exists:servicios_tipos,id',
-        'detail' => 'required|array',
+        //'tipo_servicio' => 'required|integer|exists:servicios_tipos,id',
+        'detail' => 'required|string|max:100',
         'worker' => 'required|string|max:100',
         'description' => 'nullable|string',
         'date_start' => 'required|date|after_or_equal:today',

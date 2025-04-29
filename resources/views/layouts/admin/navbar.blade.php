@@ -78,7 +78,7 @@
                             <div class="profile-info">
                                 <div class="info">
                                     <div class="image">
-                                        <img src="{{ asset('assets/dashboard/images/profile/profile-image.png')}}" alt="" />
+                                        <img src="{{ asset('imgs/avatar.png')}}" alt="" />
                                     </div>
                                     <div>
                                         <h6 class="fw-500">{{ auth()->user()->name }}</h6>

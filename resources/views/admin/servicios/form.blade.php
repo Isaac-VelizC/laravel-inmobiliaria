@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ' Servicios- Agregar')
+@section('title', ' Servicios - Agregar')
 
 @section('content')
 
@@ -11,7 +11,9 @@
             ['label' => 'Servicios', 'url' => route('adm.servicios.index')],
             ['label' => 'Formulario', 'url' => null]
         ]" />
-
+        @if (session('success'))
+        <x-alert type="success" title="Success" heading="Éxito" message="{{ session('success') }}" />
+        @endif
         @if (session('error'))
         <x-alert type="danger" title="danger" heading="Error" message="{{ session('error') }}" />
         @endif
@@ -54,21 +56,8 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-floating form-floating-outline">
-                                            <select id="tipo_servicio" name="tipo_servicio"
-                                                class="@error('tipo_servicio') is-invalid @enderror select2 form-select"
-                                                data-allow-clear="true">
-                                                @foreach ($tipoServicio as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-                                            <label for="tipo_servicio">Tipo de servicio</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 select2-primary">
-                                        <div class="form-floating form-floating-outline">
-                                            <select id="detail" name="detail[]"
-                                                class="@error('detail') is-invalid @enderror select2 form-select"
-                                                multiple>
+                                            <select id="detail" name="detail"
+                                                class="@error('detail') is-invalid @enderror form-select">
                                                 <option value="pintura">Pintura</option>
                                                 <option value="jardineria">Servicios de jardineria</option>
                                                 <option value="alabanileria">Albañileria</option>
@@ -94,14 +83,15 @@
                                             @error('worker')
                                             <span class="invalid-feedback">{{ $message }}</span>
                                             @enderror
-                                            <label for="worker">Nombre del trabajador</label>
+                                            <label for="worker">Nombre completo del trabajador</label>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-floating form-floating-outline">
                                             <input type="date" id="date_start" name="date_start"
                                                 class="@error('date_start') is-invalid @enderror form-control"
-                                                value="{{ old('date_start') ?? date(" Y-m-d")}}" />
+                                                value="{{ old('date_start') ?? date(" Y-m-d")}}"
+                                                min="{{ now()->format('Y-m-d') }}" />
                                             @error('date_start')
                                             <span class="invalid-feedback">{{ $message }}</span>
                                             @enderror
@@ -145,9 +135,8 @@
                                     <div class="col-md-12">
                                         <div class="form-floating form-floating-outline">
                                             <textarea class="@error('description') is-invalid @enderror form-control"
-                                                id="description" name="description" rows={{4}} placeholder="Detalle...">
-                                                {{ old('description') }}
-                                            </textarea>
+                                                id="description" name="description" rows="6"
+                                                placeholder="Detalle...">{{ old('description') }}</textarea>
                                             @error('description')
                                             <span class="invalid-feedback">{{ $message }}</span>
                                             @enderror
@@ -157,7 +146,9 @@
                                 </div>
                                 <div class="pt-4">
                                     <button type="submit" class="btn btn-primary me-sm-3 me-1">Enviar</button>
-                                    <button type="reset" class="btn btn-outline-secondary">Cancelar</button>
+                                    <button type="reset" class="btn btn-outline-secondary" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true"
+                                        aria-controls="collapseOne">Cancelar</button>
                                 </div>
                             </form>
                         </div>
@@ -201,7 +192,7 @@
                                         {{ $item->usuario->persona->name . ' ' . $item->usuario->persona->surnames }}
                                     </td>
                                     <td class="text-sm">{{ $item->date_end }}</td>
-                                    <td class="text-sm">{{ $item->tipoServicio->name }}</td>
+                                    <td class="text-sm">{{ $item->detail }}</td>
                                     <td><span class="badge bg-primary">{{ $item->status }}</span></td>
                                     <td class="action justify-content-end g-4">
                                         <!--a-- class="badge bg-danger" href="{{ route('adm.servicios.editar', $item->id) }}"

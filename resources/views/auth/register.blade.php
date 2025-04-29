@@ -13,7 +13,7 @@
             <form id="formAuthentication" class="login-form" action="{{ route('register') }}" method="POST">
                 @csrf
                 <input type="text" class="@error('name') is-invalid @enderror" id="username" name="name"
-                    placeholder="Nombre de Usuario" autofocus value="{{ old('name') }}">
+                    placeholder="Nombre" autofocus value="{{ old('name') }}">
                 @error('name')
                 <span class="invalid-feedback" role="alert">
                     <span class="fw-medium">{{ $message }}</span>
@@ -28,14 +28,14 @@
                 </span>
                 @enderror
                 <input type="text" class="@error('email') is-invalid @enderror" id="email" name="email"
-                    placeholder="john@example.com" value="{{ old('email') }}">
+                    placeholder="Correo Electronico" value="{{ old('email') }}">
                 @error('email')
                 <span class="invalid-feedback" role="alert">
                     <span class="fw-medium">{{ $message }}</span>
                 </span>
                 @enderror
                 <input type="text" class="@error('phone') is-invalid @enderror" id="phone" name="phone"
-                    placeholder="00000000" value="{{ old('phone') }}">
+                    placeholder="Telefono" value="{{ old('phone') }}">
                 @error('phone')
                 <span class="invalid-feedback" role="alert">
                     <span class="fw-medium">{{ $message }}</span>

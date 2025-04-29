@@ -82,9 +82,7 @@
                                 <div class="col-md-12">
                                     <div class="">
                                         <label for="detail">Detalles de la cita (Opcional)</label>
-                                        <textarea id="detail" name="detail" class="form-control @error('detail') is-invalid @enderror" rows="3">
-                                            {{ old('detail', $group->detail ?? '') }}
-                                        </textarea>
+                                        <textarea id="detail" name="detail" class="form-control @error('detail') is-invalid @enderror" rows="3">{{ old('detail', $group->detail ?? '') }}</textarea>
                                         @error('detail') <span class="invalid-feedback">{{ $message }}</span> @enderror
                                     </div>
                                 </div>

@@ -17,10 +17,10 @@
         @endif
 
         <div class="form-elements-wrapper">
-            <div class=" card-style">
-                <form class="card-body" action="{{ route('adm.servicios.agregar_nuevo') }}" method="POST">
+            <div class="card-style">
+                <form class="card-body" action="{{ route('adm.servicios.editar_existente', $servicio->id) }}" method="POST">
                     @csrf
-                    <input type="hidden" id="id_propiedad" name="id_propiedad" value="{{ $propiedadID->id }}">
+                    @method('PUT')
                     <h6 class="mb-3">1. Detalles</h6>
                     <div class="row g-4">
                         <div class="mb-4 col-md-4 ecommerce-select2-dropdown">
@@ -29,43 +29,30 @@
                                     class="@error('id_user') is-invalid @enderror select2 form-select"
                                     data-allow-clear="true">
                                     @foreach($usuarios as $u)
-                                    <option value="{{ $u->id }}">{{ $u->persona->name.'
-                                        '.$u->persona->surnames }}
+                                    <option value="{{ $u->id }}">{{ $u->persona->name.' '.$u->persona->surnames }}
                                     </option>
                                     @endforeach
                                 </select>
                                 <label for="usuario">Cliente Seleccionar</label>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-floating form-floating-outline">
-                                <select id="tipo_servicio" name="tipo_servicio"
-                                    class="@error('tipo_servicio') is-invalid @enderror select2 form-select"
-                                    data-allow-clear="true">
-                                    @foreach ($tipoServicio as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="tipo_servicio">Tipo de servicio</label>
-                            </div>
-                        </div>
                         <div class="col-md-4 select2-primary">
                             <div class="form-floating form-floating-outline">
-                                <select id="detail" name="detail[]"
-                                    class="@error('detail') is-invalid @enderror select2 form-select" multiple>
-                                    <option value="pintura">Pintura</option>
-                                    <option value="jardineria">Servicios de jardineria</option>
-                                    <option value="alabanileria">Albañileria</option>
-                                    <option value="construccion">Trabajos de construccion</option>
-                                    <option value="electricidad">Electricidad</option>
-                                    <option value="carpinteria">Carpinteria</option>
-                                    <option value="volqueta">Volqueta</option>
-                                    <option value="cemento">Cemento</option>
-                                    <option value="yeso">Yeso</option>
+                                <select id="detail" name="detail"
+                                    class="@error('detail') is-invalid @enderror select2 form-select">
+                                    <option value="pintura" {{ (old('detail', $servicio->detail ?? '') == 'pintura') ? 'selected' : '' }}>Pintura</option>
+                                    <option value="jardineria" {{ (old('detail', $servicio->detail ?? '') == 'jardineria') ? 'selected' : '' }}>Servicios de jardineria</option>
+                                    <option value="alabanileria" {{ (old('detail', $servicio->detail ?? '') == 'alabanileria') ? 'selected' : '' }}>Albañileria</option>
+                                    <option value="construccion" {{ (old('detail', $servicio->detail ?? '') == 'construccion') ? 'selected' : '' }}>Trabajos de construccion</option>
+                                    <option value="electricidad" {{ (old('detail', $servicio->detail ?? '') == 'electricidad') ? 'selected' : '' }}>Electricidad</option>
+                                    <option value="carpinteria" {{ (old('detail', $servicio->detail ?? '') == 'carpinteria') ? 'selected' : '' }}>Carpinteria</option>
+                                    <option value="volqueta" {{ (old('detail', $servicio->detail ?? '') == 'volqueta') ? 'selected' : '' }}>Volqueta</option>
+                                    <option value="cemento" {{ (old('detail', $servicio->detail ?? '') == 'cemento') ? 'selected' : '' }}>Cemento</option>
+                                    <option value="yeso" {{ (old('detail', $servicio->detail ?? '') == 'yeso') ? 'selected' : '' }}>Yeso</option>
                                 </select>
                                 <label for="detail">Servicios</label>
                             </div>
-                        </div>
+                        </div>                        
                     </div>
                     <hr class="my-4 mx-n4" />
                     <h6 class="mb-3">2. Trabajador</h6>
@@ -74,18 +61,19 @@
                             <div class="form-floating form-floating-outline">
                                 <input type="text" id="worker" name="worker"
                                     class="@error('worker') is-invalid @enderror form-control" placeholder="Juan"
-                                    value="{{ old('worker') }}" />
+                                    value="{{ $servicio ? $servicio->worker : old('worker') }}" />
                                 @error('worker')
                                 <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
-                                <label for="worker">Nombre del trabajador</label>
+                                <label for="worker">Nombre completo del trabajador</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-floating form-floating-outline">
                                 <input type="date" id="date_start" name="date_start"
                                     class="@error('date_start') is-invalid @enderror form-control"
-                                    value="{{ old('date_start') ?? date(" Y-m-d")}}" />
+                                    value="{{ old('date_start', $servicio ? $servicio->date_start : now()->format('Y-m-d')) }}"
+                                    min="{{ now()->format('Y-m-d') }}" />
                                 @error('date_start')
                                 <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
@@ -96,7 +84,7 @@
                             <div class="form-floating form-floating-outline">
                                 <input type="date" id="date_end" name="date_end"
                                     class="@error('date_end') is-invalid @enderror form-control"
-                                    value="{{ old('date_end') }}" />
+                                    value="{{ $servicio ? $servicio->date_end : old('date_end') }}" />
                                 @error('date_end')
                                 <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
@@ -107,7 +95,7 @@
                             <div class="form-floating">
                                 <input type="number" min="0" id="price" name="price"
                                     class="@error('price') is-invalid @enderror form-control"
-                                    value="{{ old('price') }}" />
+                                    value="{{ $servicio ? $servicio->price : old('price') }}" />
                                 @error('price')
                                 <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
@@ -119,9 +107,9 @@
                                 <select id="status" name="status"
                                     class="@error('status') is-invalid @enderror select2 form-select"
                                     data-allow-clear="true">
-                                    <option value="entregado">Entregado</option>
-                                    <option value="en_proceso">En proceso</option>
-                                    <option value="terminado">Terminado</option>
+                                    <option value="entregado" {{ $servicio && $servicio->status == 'entregado' ? 'selected' : '' }}>Entregado</option>
+                                    <option value="en_proceso" {{ $servicio && $servicio->status == 'en_proceso' ? 'selected' : '' }}>En proceso</option>
+                                    <option value="terminado" {{ $servicio && $servicio->status == 'terminado' ? 'selected' : '' }}>Terminado</option>
                                 </select>
                                 <label for="status">Estado de servicio</label>
                             </div>
@@ -129,9 +117,7 @@
                         <div class="col-md-12">
                             <div class="form-floating form-floating-outline">
                                 <textarea class="@error('description') is-invalid @enderror form-control"
-                                    id="description" name="description" rows={{4}} placeholder="Detalle...">
-                                        {{ old('description') }}
-                                    </textarea>
+                                    id="description" name="description" rows={{4}} placeholder="Detalle...">{{ $servicio ? $servicio->description : old('description') }}</textarea>
                                 @error('description')
                                 <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
