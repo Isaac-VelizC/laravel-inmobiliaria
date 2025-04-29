@@ -88,11 +88,11 @@
                             </div>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profile">
-                            <li>
+                            <!--li>
                                 <a href="#0">
                                     <i class="lni lni-user"></i> Mi Perfil
                                 </a>
-                            </li>
+                            </li-->
                             <li class="divider"></li>
                             <li>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
