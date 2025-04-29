@@ -86,6 +86,7 @@
                                 }}</small>
                         </p>
 
+                        @role('Cliente')
                         @if($fechaPasada)
                         <button class="btn btn-secondary btn-sm" disabled>Cita Expirada</button>
                         @elseif($citaLlena)
@@ -95,6 +96,7 @@
                         @else
                         <a href="{{ route('programar.cita', $item->id) }}" class="btn btn-primary btn-sm">Programar</a>
                         @endif
+                        @endrole
                     </div>
                 </div>
             </div>
