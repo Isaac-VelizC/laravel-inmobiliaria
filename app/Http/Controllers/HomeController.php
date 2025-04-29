@@ -31,7 +31,7 @@ class HomeController extends Controller
     {
         $countPropiedades = Propiedade::count();
         $countUsers = User::where('rol', '!=', 'Admin')->count();
-        $countServicios = Servicio::where('status', 'pendiente')->count();
+        $countServicios = Servicio::where('status', '!=', 'terminado')->count();
         $countCitas = CitaGroup::where('status', 'pendiente')->count();
         return view('home', compact('countPropiedades', 'countUsers', 'countServicios', 'countCitas'));
     }
