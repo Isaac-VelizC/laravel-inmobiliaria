@@ -8,6 +8,7 @@ use App\Models\Servicio;
 use App\Models\ServiciosTipo;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ServicioController extends Controller
@@ -136,6 +137,37 @@ class ServicioController extends Controller
             return back()->with('success', 'Imágenes guardadas correctamente.');
         } catch (\Throwable $th) {
             return back()->with('error', 'Ocurrió un error, vuelve a intentarlo. Detalle: ' . $th->getMessage());
+        }
+    }
+    /**
+     * Eliminar imagen de servicio
+     */
+    public function delete_imagen_servicio($id)
+    {
+        // Obtener la imagen de la base de datos
+        $imagenServicio = ImagenServicio::find($id);
+
+        if ($imagenServicio) {
+            // Obtener la ruta completa del archivo de la base de datos
+            $filePath = $imagenServicio->path; // Ajusta la ruta si es necesario
+
+            // Verificar si el archivo existe en el almacenamiento
+            if (Storage::disk('public')->exists($filePath)) {
+                // Eliminar archivo
+                Storage::disk('public')->delete($filePath);
+            } else {
+                // Si no existe el archivo, retornar un error
+                return back()->with('error', 'El archivo no se encuentra en el almacenamiento.');
+            }
+
+            // Eliminar el registro de la base de datos
+            $imagenServicio->delete();
+
+            // Retornar mensaje de éxito
+            return back()->with('success', 'Imagen eliminada correctamente.');
+        } else {
+            // Si no se encuentra la imagen en la base de datos
+            return back()->with('error', 'Imagen no encontrada.');
         }
     }
 }
