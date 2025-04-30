@@ -13,20 +13,24 @@
         {{ config('variables.templateSuffix') ? config('variables.templateSuffix') : 'TemplateSuffix' }}</title>
 
     <meta property="og:title" content="@yield('og_title', 'Principal')">
-    <meta property="og:description" content="@yield('og_description', 'Empresa especializada en compra y venta de propiedades')">
+    <meta property="og:description"
+        content="@yield('og_description', 'Empresa especializada en compra y venta de propiedades')">
     <meta property="og:image" content="@yield('og_image', asset('imgs/Soluciones_Inmobiliarias.webp'))">
     <meta property="og:url" content="@yield('og_url', 'http://casas.test')">
+    <!-- Etiquetas para Twitter / X -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('og_title', 'Principal')">
-    <meta name="twitter:description" content="@yield('og_description', 'Empresa especializada en compra y venta de propiedades')">
+    <meta name="twitter:description"
+        content="@yield('og_description', 'Empresa especializada en compra y venta de propiedades')">
     <meta name="twitter:image" content="@yield('og_image', asset('imgs/Soluciones_Inmobiliarias.webp'))">
+
 
     <!-- laravel CRUD token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon -->
 
     <!-- ========== All CSS files linkup ========= -->
-    <link rel="stylesheet" href="{{ asset('assets/dashboard/css/bootstrap.min.css')}}"/>
+    <link rel="stylesheet" href="{{ asset('assets/dashboard/css/bootstrap.min.css')}}" />
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/lineicons.css')}}" />
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/materialdesignicons.min.css')}}" />
     <link rel="stylesheet" href="{{ asset('assets/dashboard/css/fullcalendar.css')}}" />
@@ -45,7 +49,7 @@
         <div class="spinner"></div>
     </!---div-->
     <!-- ======== Preloader =========== -->
-    
+
     @include('layouts.admin.sidebar')
 
     <main class="main-wrapper">

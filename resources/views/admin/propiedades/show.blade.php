@@ -3,7 +3,7 @@
 @section('title', $propiedad->name)
 
 
-@section('og_title', $propiedad->nombre)
+@section('og_title', $propiedad->name)
 @section('og_description', $message)
 @php
 $og_img = asset('imgs/Soluciones_Inmobiliarias.webp');
@@ -80,10 +80,11 @@ $og_img = $portadaPublic->path;
                                     <span>Facebook</span>
                                 </a>
                                 <a class="main-btn secondary-btn-outline rounded-full"
-                                    href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}&text={{ urlencode('¡Mira esto!') }}"
+                                    href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}&text={{ urlencode($propiedad->name ?? '¡Mira esto!') }}"
                                     target="_blank" data-network="twitter">
                                     <span>Twitter</span>
                                 </a>
+
                             </div>
                         </div>
                         <div>
