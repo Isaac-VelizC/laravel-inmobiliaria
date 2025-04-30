@@ -6,10 +6,10 @@
 @section('og_title', $propiedad->nombre)
 @section('og_description', $message)
 @php
-    $og_img = asset('imgs/Soluciones_Inmobiliarias.webp');
-    if($portadaPublic){
-        $og_img = $portadaPublic->path;
-    }
+$og_img = asset('imgs/Soluciones_Inmobiliarias.webp');
+if($portadaPublic){
+$og_img = $portadaPublic->path;
+}
 @endphp
 @section('og_image', $og_img)
 @section('og_url', $urlPublic)
@@ -74,10 +74,17 @@
                     <div class=" card-style mb-4">
                         <div class="d-flex justify-content-between align-content-center mb-4">
                             <h5 class="mb-0">Información de la propiedad existente </h5>
-                            <a class="main-btn primary-btn-outline rounded-full" href="{{ $shareLinks['facebook'] }}"
-                                target="_blank" data-network="facebook">
-                                <span>Facebook</span>
-                            </a>
+                            <div>
+                                <a class="main-btn primary-btn-outline rounded-full"
+                                    href="{{ $shareLinks['facebook'] }}" target="_blank" data-network="facebook">
+                                    <span>Facebook</span>
+                                </a>
+                                <a class="main-btn secondary-btn-outline rounded-full"
+                                    href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}&text={{ urlencode('¡Mira esto!') }}"
+                                    target="_blank" data-network="twitter">
+                                    <span>Twitter</span>
+                                </a>
+                            </div>
                         </div>
                         <div>
                             <p class="d-flex flex-wrap">

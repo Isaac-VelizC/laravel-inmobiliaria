@@ -96,6 +96,9 @@
                         <div class="mt-5">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4>Resultados del Reporte</h4>
+                                <a href="{{ route('adm.reportes.citas.excel', request()->all()) }}" class="btn btn-success mb-3">
+                                    <i class="mdi mdi-file-excel"></i> Descargar Excel
+                                </a>                                
                                 <span class="badge bg-primary">
                                     Total: {{ $citas->total() }} citas
                                 </span>

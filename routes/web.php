@@ -85,6 +85,7 @@ Route::group(['middleware' => ['checkRole:Admin,Agente']], function () {
         /// Reportes 
         Route::get('/reportes/citas', [HomeController::class, 'indexReportesPage'])->name('adm.reportes.citas');
         Route::post('/reportes/citas/generar', [HomeController::class, 'generarReporte'])->name('adm.reportes.citas.generar');
+        Route::get('reportes/citas/excel', [HomeController::class, 'exportExcel'])->name('adm.reportes.citas.excel');
         /// Servicios
         //Citas
         //Route::get('/citas/lista', [CitaController::class, 'index_admin'])->name('adm.citas.index');

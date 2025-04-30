@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CitasExport;
 use App\Models\Agente;
 use App\Models\CitaGroup;
 use App\Models\Propiedade;
@@ -9,6 +10,7 @@ use App\Models\Servicio;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HomeController extends Controller
 {
@@ -86,5 +88,11 @@ class HomeController extends Controller
             'propiedades' => Propiedade::all(),
             'agentes' => Agente::with('usuario.persona')->get(),
         ]);
+    }
+
+    public function exportExcel(Request $request)
+    {
+        // Pasa todos los filtros a la clase de exportación
+        return Excel::download(new CitasExport($request->all()), 'reporte_citas.xlsx');
     }
 }
