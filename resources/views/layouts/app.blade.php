@@ -22,7 +22,7 @@
     <meta name="twitter:title" content="¡Mira esta propiedad en venta!">
     <meta name="twitter:description" content="Hermosa casa en zona exclusiva. ¡Contáctanos ahora!">
     <meta name="twitter:image" content="https://soluciones-inmobiliarias.site/imgs/Soluciones_Inmobiliarias.webp">
-
+    <meta property="og:type" content="website">
     <!-- laravel CRUD token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon -->
