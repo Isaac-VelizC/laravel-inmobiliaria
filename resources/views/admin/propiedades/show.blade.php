@@ -80,11 +80,10 @@ $og_img = $portadaPublic->path;
                                     <span>Facebook</span>
                                 </a>
                                 <a class="main-btn secondary-btn-outline rounded-full"
-                                    href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}&text={{ urlencode($propiedad->name ?? '¡Mira esto!') }}"
+                                    href="https://twitter.com/intent/tweet?url={{ urlencode($urlPublic) }}&text={{ urlencode($propiedad->name ?? '¡Mira esto!') }}"
                                     target="_blank" data-network="twitter">
                                     <span>Twitter</span>
                                 </a>
-
                             </div>
                         </div>
                         <div>

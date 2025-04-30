@@ -19,11 +19,9 @@
     <meta property="og:url" content="@yield('og_url', 'http://casas.test')">
     <!-- Etiquetas para Twitter / X -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="@yield('og_title', 'Principal')">
-    <meta name="twitter:description"
-        content="@yield('og_description', 'Empresa especializada en compra y venta de propiedades')">
-    <meta name="twitter:image" content="@yield('og_image', asset('imgs/Soluciones_Inmobiliarias.webp'))">
-
+    <meta name="twitter:title" content="¡Mira esta propiedad en venta!">
+    <meta name="twitter:description" content="Hermosa casa en zona exclusiva. ¡Contáctanos ahora!">
+    <meta name="twitter:image" content="https://soluciones-inmobiliarias.site/imgs/Soluciones_Inmobiliarias.webp">
 
     <!-- laravel CRUD token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
