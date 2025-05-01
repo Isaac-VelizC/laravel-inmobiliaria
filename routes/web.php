@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\PropiedadesController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\BackupController;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\CitaGroupController;
 use App\Http\Controllers\ClientController;
@@ -87,7 +88,12 @@ Route::group(['middleware' => ['checkRole:Admin,Agente']], function () {
         Route::get('/reportes/citas', [HomeController::class, 'indexReportesPage'])->name('adm.reportes.citas');
         Route::post('/reportes/citas/generar', [HomeController::class, 'generarReporte'])->name('adm.reportes.citas.generar');
         Route::get('reportes/citas/excel', [HomeController::class, 'exportExcel'])->name('adm.reportes.citas.excel');
-        /// Servicios
+        /// backups
+        Route::get('/admin/copias-de-seguridad', [BackupController::class, 'pageCopiasSeguridad'])->name('admin.page.packups');
+        Route::post('/backups/run', [BackupController::class, 'runBackup'])->name('backup.run');
+        Route::get('/backups/download/{file}', [BackupController::class, 'downloadBackup'])->name('backup.download');
+        Route::get('/backup/delete/{name}', [BackupController::class, 'deleteBackup'])->name('backup.delete');
+        
         //Citas
         //Route::get('/citas/lista', [CitaController::class, 'index_admin'])->name('adm.citas.index');
         //Route::get('/citas/usuario/{id?}', [CitaController::class, 'index_admin_user'])->name('adm.citas.usuarios');

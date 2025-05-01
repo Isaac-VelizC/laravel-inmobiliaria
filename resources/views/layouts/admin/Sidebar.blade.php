@@ -62,6 +62,12 @@
                     <span class="text">Reportes</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.page.packups') }}">
+                    <span class="icon mdi mdi-security"></span>
+                    <span class="text">Copias de Seguridad</span>
+                </a>
+            </li>
             @endcan
         </ul>
     </nav>
