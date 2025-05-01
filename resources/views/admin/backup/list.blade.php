@@ -31,11 +31,11 @@
                             </div>
                                 <form action="{{ route('backup.run') }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="btn btn-info mb-3">Ejecutar Backup</button>
+                                    <button type="submit" class="main-btn primary-btn-light rounded-full btn-hover">Ejecutar Backup</button>
                                 </form>
                         </div>
                         <div class="table-wrapper table-responsive">
-                            <table id="datatableUsers" class="table table-striped" data-toggle="data-table">
+                            <table id="datatableUsers" class="display table" style="width:100%" data-toggle="data-table">
                                 <thead>
                                     <tr>
                                         <th>Archivo</th>
@@ -50,15 +50,17 @@
                                         <td>{{ basename($backup['path']) }}</td>
                                         <td>{{ number_format($backup['size'] / 1048576, 2) }} MB</td>
                                         <td>{{ date('Y-m-d H:i:s', $backup['last_modified']) }}</td>
-                                        <td class="text-center">
-                                            <a href="{{ route('backup.delete', basename($backup['path'])) }}"
-                                                class="btn btn-sm btn-icon btn-danger">
-                                                <i class="bi bi-trash"></i>
-                                            </a>
-                                            <a href="{{ route('backup.download', basename($backup['path'])) }}"
-                                                class="btn btn-sm btn-icon btn-success">
-                                                <i class="bi bi-download"></i>
-                                            </a>
+                                        <td class=" d-flex gap-2">
+                                            <div>
+                                                <a title="borrar" href="{{ route('backup.delete', basename($backup['path'])) }}" class="text-danger btn-block">
+                                                    <span class="icon mdi mdi-delete-outline me-2 fs-4"></span>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <a title="descargar" href="{{ route('backup.download', basename($backup['path'])) }}" class="text-secondary btn-a">
+                                                    <span class="icon mdi mdi-download me-2 fs-4"></span>
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach

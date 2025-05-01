@@ -47,8 +47,6 @@
                                     <option value="electricidad" {{ (old('detail', $servicio->detail ?? '') == 'electricidad') ? 'selected' : '' }}>Electricidad</option>
                                     <option value="carpinteria" {{ (old('detail', $servicio->detail ?? '') == 'carpinteria') ? 'selected' : '' }}>Carpinteria</option>
                                     <option value="volqueta" {{ (old('detail', $servicio->detail ?? '') == 'volqueta') ? 'selected' : '' }}>Volqueta</option>
-                                    <option value="cemento" {{ (old('detail', $servicio->detail ?? '') == 'cemento') ? 'selected' : '' }}>Cemento</option>
-                                    <option value="yeso" {{ (old('detail', $servicio->detail ?? '') == 'yeso') ? 'selected' : '' }}>Yeso</option>
                                 </select>
                                 <label for="detail">Servicios</label>
                             </div>

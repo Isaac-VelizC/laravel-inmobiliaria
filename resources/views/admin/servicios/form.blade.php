@@ -65,8 +65,6 @@
                                                 <option value="electricidad">Electricidad</option>
                                                 <option value="carpinteria">Carpinteria</option>
                                                 <option value="volqueta">Volqueta</option>
-                                                <option value="cemento">Cemento</option>
-                                                <option value="yeso">Yeso</option>
                                             </select>
                                             <label for="detail">Servicios</label>
                                         </div>
