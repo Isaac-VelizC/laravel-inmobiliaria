@@ -193,11 +193,19 @@
                                     <td class="text-sm">{{ $item->detail }}</td>
                                     <td><span class="badge bg-primary">{{ $item->status }}</span></td>
                                     <td class="action justify-content-end g-4">
-                                        <a class="badge bg-info" href="{{ route('adm.servicios.show', $item->id) }}"
+                                        <form action="{{ route('adm.servicios.destroy', $item->id) }}" method="POST"
+                                              onsubmit="return confirm('¿Estás seguro de borrar este servicio?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-danger me-2" aria-label="Borrar servicio">
+                                                <i class="mdi mdi-delete-outline fs-5"></i>
+                                            </button>
+                                        </form>
+                                        <a class="text-info" href="{{ route('adm.servicios.show', $item->id) }}"
                                             aria-label="Ver detalles del servicio">
-                                            <i class="mdi mdi-information-outline"></i>
+                                            <i class="mdi mdi-information-outline fs-5"></i>
                                         </a>
-                                    </td>
+                                    </td>                                    
                                 </tr>
                                 @endforeach
                                 @else

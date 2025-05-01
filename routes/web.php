@@ -77,6 +77,7 @@ Route::group(['middleware' => ['checkRole:Admin,Agente']], function () {
         Route::get('/servicios/show/{id}', [ServicioController::class, 'show'])->name('adm.servicios.show');
         Route::get('/servicios/editar/{id?}', [ServicioController::class, 'edit'])->name('adm.servicios.editar');
         Route::put('/servicios/editar_existente/{id}', [ServicioController::class, 'update'])->name('adm.servicios.editar_existente');
+        Route::delete('/servicios/{id}/delete', [ServicioController::class, 'destroy'])->name('adm.servicios.destroy');
         Route::post('/servicios/agregar_nuevo', [ServicioController::class, 'store'])->name('adm.servicios.agregar_nuevo');
         Route::post('/servicios/agregar_imagen', [ServicioController::class, 'store_imagen_servicio'])->name('adm.servicios.agregar_imagen');
         Route::get('/servicios/delete_imagen/{id}', [ServicioController::class, 'delete_imagen_servicio'])->name('adm.servicios.delete_imagen');

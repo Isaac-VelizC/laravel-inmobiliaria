@@ -110,7 +110,15 @@ class ServicioController extends Controller
      */
     public function destroy(string $id)
     {
-        /// delete service
+        $servicio = Servicio::withCount('imagenes')->findOrFail($id);
+
+        if ($servicio->imagenes_count > 0) {
+            return redirect()->back()->with('error', 'No se puede eliminar el servicio porque tiene imágenes asociadas. Por favor elimínelas primero.');
+        }
+
+        $servicio->delete();
+
+        return redirect()->back()->with('success', 'Servicio eliminado exitosamente.');
     }
 
     /**
