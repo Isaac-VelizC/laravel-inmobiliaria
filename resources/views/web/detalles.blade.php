@@ -3,7 +3,8 @@
 @section('title', $propiedad->name )
 
 @section('content')
-
+<!-- En el head -->
+<link href="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.3/dist/index.min.css" rel="stylesheet">
 <!-- Pannellum CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
 <!-- Pannellum JS -->
@@ -180,7 +181,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" id="pills-plans-tab" data-toggle="pill" href="#pills-plans" role="tab"
-              aria-controls="pills-plans" aria-selected="false">Video</a>
+              aria-controls="pills-plans" aria-selected="false">Imagenes</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="pills-map-tab" data-toggle="pill" href="#pills-map" role="tab"
@@ -198,9 +199,21 @@
             <div id="panorama" style="width: 100%; height: 500px;"></div>
           </div>
           <div class="tab-pane fade" id="pills-plans" role="tabpanel" aria-labelledby="pills-plans-tab">
-            <iframe src="https://player.vimeo.com/video/73221098" width="100%" height="460" frameborder="0"
-              webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            <div class="row">
+              @foreach ($imagenes as $item)
+                <div class="col-6 col-md-3 mb-4">
+                  <a href="{{ $item->path ? asset('storage/'. $item->path) : 'assets/img/slide-2.jpg' }}" data-toggle="lightbox">
+                    <img 
+                      src="{{ $item->path ? asset('storage/'. $item->path) : 'assets/img/slide-2.jpg' }}" 
+                      alt="{{ $item->path }}" 
+                      class="img-fluid"
+                    >
+                  </a>
+                </div>
+              @endforeach
+            </div>
           </div>
+          
           <div class="tab-pane fade" id="pills-map" role="tabpanel" aria-labelledby="pills-map-tab">
             <iframe
               src="https://www.google.com/maps?q={{ $propiedad->latitude }},{{ $propiedad->longitude }}&hl=es;z=15&output=embed"
@@ -212,6 +225,9 @@
   </div>
 </section>
 <!--/ Property Single End /-->
+
+<!-- Al final del body -->
+<script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.3/dist/index.min.js"></script>
 
 <script>
   var scenes = {

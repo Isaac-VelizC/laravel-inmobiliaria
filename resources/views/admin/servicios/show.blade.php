@@ -94,6 +94,7 @@
                                             <button type="submit" class="main-btn primary-btn-outline">Guardar</button>
                                         </div>
                                     </form>
+                                    <br>
                                     <div class="row">
                                         @foreach ($servicio->imagenes as $imagen)
                                         <div class="col-md-3 mb-3">

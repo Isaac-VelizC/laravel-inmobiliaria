@@ -38,15 +38,15 @@ class EncuestaController extends Controller
     // En tu controlador
     public function obtenerTopPropiedades()
     {
-        $topPropiedades = Visita::select('propiedad_id', DB::raw('COUNT(*) as total'))
+        $topPropiedades = Visita::with('propiedad')
+            ->select('propiedad_id', DB::raw('COUNT(*) as total'))
             ->groupBy('propiedad_id')
             ->orderByDesc('total')
             ->limit(10)
-            ->with('propiedad')
             ->get();
 
         $etiquetas = $topPropiedades->map(function ($item) {
-            return $item->propiedad->titulo; // Asegúrate de que exista el campo 'titulo'
+            return $item->propiedad->name; // O 'titulo' si realmente se llama así
         });
 
         $datos = $topPropiedades->pluck('total');

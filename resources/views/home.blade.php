@@ -127,16 +127,17 @@
   })();
   
   // Gráfico de propiedades más visitadas
-  (async () => {
+    (async () => {
       const respuestaPropiedades = await fetch('{{ route('grafico.top.propiedades') }}');
       const datosPropiedades = await respuestaPropiedades.json();
+      console.log(datosPropiedades);
 
       new Chart(document.getElementById('propiedadesChart').getContext('2d'), {
           type: 'bar',
           data: {
               labels: datosPropiedades.etiquetas,
               datasets: [{
-                  label: 'Propiedades con mas Visitas',
+                  label: 'Propiedades con más Visitas',
                   data: datosPropiedades.datos,
                   backgroundColor: 'rgba(54, 162, 235, 0.2)',
                   borderColor: 'rgba(54, 162, 235, 1)',
@@ -144,7 +145,7 @@
               }]
           },
           options: {
-              indexAxis: 'y', // Barras horizontales
+              indexAxis: 'y',
               scales: {
                   y: { beginAtZero: true },
                   x: { ticks: { precision: 0 } }
@@ -152,5 +153,6 @@
           }
       });
   })();
+
 </script>
 @endpush
