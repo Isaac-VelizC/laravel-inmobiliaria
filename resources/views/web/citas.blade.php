@@ -134,7 +134,7 @@
                         </td>
                         <td>
                             @if ($c->groupCita->status == "concretada")
-                            <button onclick="VerEncuesta({{ $c->id }}, {{ $propiedad->id }});"
+                            <button onclick="VerEncuesta({{ $c->groupCita->id }}, {{ $propiedad->id }});"
                                 class="btn btn-primary btn-sm" type="button">Encuesta</button>
                             @endif
                         </td>
@@ -219,9 +219,9 @@
     }
 </style>
 <script>
-    function VerEncuesta(id, idp) {
-        console.log(id);
-        const url = `{{ route('usuario.citas.encuesta') }}/${id}/${idp}`;
+    function VerEncuesta(idCitaGroup, idp) {
+        console.log(idCitaGroup);
+        const url = `{{ route('usuario.citas.encuesta') }}/${idCitaGroup}/${idp}`;
         window.open(url, 'Encuesta', 'width=800,height=600,scrollbars=yes');
     }
 </script>
