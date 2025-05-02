@@ -165,7 +165,7 @@
                         </span>
                     </p>
                     @if ($c->groupCita->status == "concretada")
-                    <button onclick="VerEncuesta({{ $c->id }}, {{  $c->propiedadCita->id }});"
+                    <button onclick="VerEncuesta({{ $c->group }}, {{  $c->propiedadCita->id }});"
                         class="btn btn-primary btn-sm mt-2">Encuesta</button>
                     @endif
                 </div>

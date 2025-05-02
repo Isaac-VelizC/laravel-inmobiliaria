@@ -66,9 +66,13 @@
                                     <tbody>
                                         @foreach ($users as $item)
                                         <tr>
-                                            <td>{{ $item->usuarioCita->persona->name .' '. $item->usuarioCita->persona->surnames }}</td>
+                                            <td>
+                                                {{ $item->usuarioCita?->persona?->name && $item->usuarioCita?->persona?->surnames 
+                                                    ? $item->usuarioCita?->persona?->name . ' ' . $item->usuarioCita?->persona?->surnames 
+                                                    : 'Sin nombre' }}
+                                            </td>                                            
                                             <td>{{ $item->usuarioCita->email }}</td>
-                                            <td>{{ $item->usuarioCita->persona->phone }}</td>
+                                            <td>{{ $item->usuarioCita?->persona?->phone ?? 'Sin telefono' }}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>

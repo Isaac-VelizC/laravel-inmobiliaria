@@ -102,7 +102,6 @@ class CitaController extends Controller
         return view('web.citas_encuesta', compact('cita', 'propiedad', 'encuesta', 'preguntas', 'estadEncuesta'));
     }
 
-
     public function storeRespuestas(Request $request)
     {
         $request->validate([
