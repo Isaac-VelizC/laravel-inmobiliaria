@@ -2,7 +2,7 @@
 <aside class="sidebar-nav-wrapper">
     <div class="navbar-logo">
         <a href="{{ url('/') }}">
-            <img src="{{ asset('imgs/logo.png')}}" alt="logo" />
+            <img src="{{ asset('imgs/logo.png')}}" alt="logo" height="100" />
         </a>
     </div>
     <nav class="sidebar-nav">

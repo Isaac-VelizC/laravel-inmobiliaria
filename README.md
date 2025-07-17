@@ -1,66 +1,138 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+[⚠️ Suspicious Content] # 📌 🏠 CasaPrime Realty
+
+> Sistema integral de gestión inmobiliaria
+
+![Banner del Proyecto](./assets/banner.png) <!-- opcional -->
+
+---
+
+## 🧭 Tabla de Contenidos
+
+- [📌 Título del Proyecto](#-título-del-proyecto)
+- [🧭 Tabla de Contenidos](#-tabla-de-contenidos)
+- [🎯 Descripción General](#-descripción-general)
+- [🚀 Características Principales](#-características-principales)
+- [📸 Galería de Imágenes](#-galería-de-imágenes)
+- [🛠️ Tecnologías Utilizadas](#️-tecnologías-utilizadas)
+- [🧪 Instalación y Uso](#-instalación-y-uso)
+<!-- [📁 Estructura del Proyecto](#-estructura-del-proyecto)
+- [🔐 Autenticación y Seguridad](#-autenticación-y-seguridad)
+- [📈 Roadmap / Funcionalidades Futuras](#-roadmap--funcionalidades-futuras)
+- [🤝 Contribuciones](#-contribuciones)-->
+- [📄 Licencia](#-licencia)
+- [👨‍💻 Autor](#-autor)
+
+---
+
+## 🎯 Descripción General
+
+Este proyecto fue desarrollado para un cliente del sector inmobiliario con el objetivo de modernizar la gestión de propiedades y citas.
+Incluye visualización de imágenes 360° con navegación mediante hotspots, lo que mejora significativamente la experiencia del usuario.
+También permite agendar citas de forma dinámica entre clientes y agentes, facilitando el seguimiento y control de visitas.
+La aplicación ofrece una solución integral para mostrar inmuebles, gestionar usuarios y optimizar la atención al cliente.
+
+---
+
+## 🚀 Características Principales
+
+- ✅ Registro y autenticación de usuarios
+- 🏘️ Gestión de propiedades con imágenes
+- 📅 Agendamiento de citas entre cliente y agente
+- 📊 Reportes administrativos descargables
+- 🌐 Interfaz responsiva para móviles y escritorio
+
+---
+
+## 📸 Galería de Imágenes
+
+Una muestra visual de la aplicación desde las vistas principales hasta el panel administrativo.
+
+---
+
+### 🏠 Página Principal
+
+![Home](./public/screens/img-5.png)
+
+---
+
+### 🔐 Inicio de Sesión
+
+![Login](./public/screens/img-7.png)
+
+---
+
+## 🛠️ Panel Administrativo
+
+### 📊 Dashboard del Administrador
+
+![Dashboard](./public/screens/img-8.png)
+
+### 🔐 Gestión de Roles y Permisos
+
+![Roles y Permisos](./public/screens/img-4.png)
+
+### 🏘️ Gestión de Propiedades
+
+![Lista de Propiedades](./public/screens/img-6.png)
+
+### 📝 Formulario para Crear Propiedad
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="./public/screens/img-10.png" width="45%" />
+  <img src="./public/screens/img-9.png" width="45%" />
 </p>
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 👤 Vista del Cliente
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 🏘️ Propiedades Disponibles
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+![Propiedades Cliente](./public/screens/img-2.png)
 
-## Learning Laravel
+### 🔍 Detalles de la Propiedad
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+![Detalle Propiedad](./public/screens/img-3.png)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🛠️ Tecnologías Utilizadas
 
-## Laravel Sponsors
+- ⚙️ **Framework**: Laravel 12  
+- 💬 **Lenguaje**: PHP 8.2  
+- 🗄️ **Base de datos**: MySQL  
+- 🎨 **Frontend**: Blade + Bootstrap 5  
+- 🧠 **Extras**: Eloquent ORM, Artisan CLI
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 🧪 Instalación y Uso
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```bash
+# 1. Clona el repositorio
+git clone https://github.com/usuario/repositorio-laravel.git
 
-## Contributing
+# 2. Ingresa al directorio
+cd repositorio-laravel
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# 3. Instala dependencias
+composer install
 
-## Code of Conduct
+# 4. Copia el archivo de entorno
+cp .env.example .env
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# 5. Genera la clave de la aplicación
+php artisan key:generate
 
-## Security Vulnerabilities
+# 6. Configura la conexión a MySQL en el archivo .env
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=nombre_de_base_de_datos
+# DB_USERNAME=tu_usuario
+# DB_PASSWORD=tu_contraseña
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# 7. Ejecuta las migraciones y seeders (opcional)
+php artisan migrate --seed
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# 8. Levanta el servidor local
+php artisan serve

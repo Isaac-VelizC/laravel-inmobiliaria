@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Soluciones Inmobiliarias - Encuesta</title>
-    <meta name="author" content="soluciones inmobiliarias">
-    <meta name="description" content="soluciones inmobiliarias - Real Estate Apartment Complex HTML Template">
-    <meta name="keywords" content="soluciones inmobiliarias - Real Estate Apartment Complex HTML Template">
+    <title>Casaprime Realty - Encuesta</title>
+    <meta name="author" content="Casaprime Realty">
+    <meta name="description" content="Casaprime Realty - Real Estate Apartment Complex HTML Template">
+    <meta name="keywords" content="Casaprime Realty - Real Estate Apartment Complex HTML Template">
     <meta name="robots" content="INDEX,FOLLOW">
 
     <!-- Mobile Specific Metas -->

@@ -1,10 +1,10 @@
 <?php
 // Variables
 return [
-  "creatorName" => "Soluciones Inmobiliarias",
+  "creatorName" => "Casaprime Realty",
   "creatorUrl" => "https://aisakveliz.netlify.app",
   "templateName" => "Inmobiliarias",
-  "templateSuffix" => "Soluciones Inmobiliarias",
+  "templateSuffix" => "Casaprime Realty",
   "templateVersion" => "1.3.0",
   "templateFree" => false,
   "templateDescription" => "Materialize – is the most developer friendly & highly customizable Admin Dashboard Template.",

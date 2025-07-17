@@ -48,17 +48,20 @@
     </div>
 </div>
 <script>
+    const urlStatusUpdate = "{{ route('adm.citas.group.status', ['id' => ':id']) }}";
+
     function abrirStatus(citaId, currentStatus) {
-        const form = document.getElementById('statusForm');
-        const statusSelect = document.getElementById('statusSelect');
+    const form = document.getElementById('statusForm');
+    const statusSelect = document.getElementById('statusSelect');
 
-        // Actualizar la acción del formulario con la URL correcta
-        form.action = `{{ route('adm.citas.group.status', '') }}/${citaId}`;
+    // Reemplaza ':id' por el ID real
+    form.action = urlStatusUpdate.replace(':id', citaId);
 
-        // Establecer el estado actual en el select
-        statusSelect.value = currentStatus || "";
+    // Establece la selección
+    statusSelect.value = currentStatus || "";
 
-        // Mostrar modal
-        new bootstrap.Modal(document.getElementById('modalStatusCita')).show();
-    }
+    // Muestra el modal
+    new bootstrap.Modal(document.getElementById('modalStatusCita')).show();
+}
+
 </script>

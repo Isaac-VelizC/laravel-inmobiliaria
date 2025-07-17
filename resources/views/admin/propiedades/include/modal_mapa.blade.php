@@ -45,7 +45,7 @@
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 20,
-                attribution: 'Soluciones Inmobiliarias'
+                attribution: 'Casaprime Realty'
             }).addTo(map);
 
             marker = L.marker([defaultCoords.lat, defaultCoords.lng], {

@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-md-12 col-lg-8">
         <div class="title-single-box">
-          <h1 class="title-single">Sobre Soluciones Inmobiliarias</h1>
+          <h1 class="title-single">Sobre Casaprime Realty</h1>
         </div>
       </div>
       <div class="col-md-12 col-lg-4">
@@ -38,7 +38,7 @@
           <img src="{{ asset('assets/img/slide-about-1.jpg')}}" alt="" class="img-fluid">
         </div>
         <div class="sinse-box">
-          <h3 class="sinse-title">Soluciones Inmobiliarias
+          <h3 class="sinse-title">Casaprime Realty
             <span></span>
             <p>Tu aliado en bienes raíces</p>
         </div>
@@ -61,7 +61,7 @@
               </h3>
             </div>
             <p class="color-text-a">
-              En Soluciones Inmobiliarias nos dedicamos a brindar asesoría integral para la compra, venta y alquiler de
+              En Casaprime Realty nos dedicamos a brindar asesoría integral para la compra, venta y alquiler de
               propiedades, acompañando a nuestros clientes en cada paso del proceso. Nos hemos consolidado
               como una empresa innovadora y confiable, enfocada en ofrecer un servicio transparente y personalizado.
             </p>

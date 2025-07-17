@@ -7,7 +7,7 @@
             <p class="text-sm">
               Desarrollado por
               <a href="{{ url('/') }}" rel="nofollow" target="_blank">
-                Soluciones Inmobiliarias
+                Casaprime Realty
               </a>
             </p>
           </div>
