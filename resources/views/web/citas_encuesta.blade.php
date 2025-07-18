@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Casaprime Realty - Encuesta</title>
-    <meta name="author" content="Casaprime Realty">
-    <meta name="description" content="Casaprime Realty - Real Estate Apartment Complex HTML Template">
-    <meta name="keywords" content="Casaprime Realty - Real Estate Apartment Complex HTML Template">
-    <meta name="robots" content="INDEX,FOLLOW">
-
+    <title>Soluciones Inmobiliarias - Encuesta</title>
+    <meta name="description"
+        content="Encuentra las mejores propiedades en venta y alquiler en [Ciudad] con Soluciones Inmobiliarias. Somos expertos en el mercado inmobiliario, te asesoramos para comprar, vender o alquilar tu casa o departamento.">
+    <meta name="keywords"
+        content="inmobiliaria, casas en venta, departamentos en alquiler, [Ciudad], bienes raíces, comprar casa, vender inmueble">
+    <meta name="robots" content="index, follow">
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Google Fonts -->

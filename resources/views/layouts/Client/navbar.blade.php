@@ -8,7 +8,7 @@
       <span></span>
       <span></span>
     </button>
-    <a class="navbar-brand text-brand" href="{{ url('/') }}">Casaprime<span class="color-b">{{""}}Realty</span></a>
+    <a class="navbar-brand text-brand" href="{{ url('/') }}">Soluciones<span class="color-b">{{""}}Inmobiliarias</span></a>
     <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none">
       @guest
       <a href="{{ route('login') }}"><i class="bi bi-person"></i></a>

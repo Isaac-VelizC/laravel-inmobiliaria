@@ -5,7 +5,7 @@
       <div class="col-sm-12 col-md-6">
         <div class="widget-a">
           <div class="w-header-a">
-            <h3 class="w-title-a text-brand">Casaprime Realty</h3>
+            <h3 class="w-title-a text-brand">Soluciones Inmobiliarias</h3>
           </div>
           <div class="w-body-a">
             <p class="w-text-a color-text-a">
@@ -21,7 +21,7 @@
                 <span class="color-text-a">Telefono .</span> +591 83246982
               </li>
               <li class="color-a">
-                <span class="color-text-a">Email .</span> casaprime.realty@gmail.com
+                <span class="color-text-a">Email .</span> solucionesinmobiliarias@gmail.com
               </li>
             </ul>
           </div>
@@ -77,7 +77,7 @@
         <div class="copyright-footer">
           <p class="copyright color-text-a">
             &copy; Copyright
-            <span class="color-a">Casaprime Realty</span> todos los derechos reservados
+            <span class="color-a">Soluciones Inmobiliarias</span> todos los derechos reservados
           </p>
         </div>
       </div>

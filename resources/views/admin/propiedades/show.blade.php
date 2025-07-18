@@ -6,7 +6,7 @@
 @section('og_title', $propiedad->name)
 @section('og_description', $message)
 @php
-$og_img = asset('imgs/casaprime_realthy.webp');
+$og_img = asset('imgs/soluciones_inmobiliarias.webp');
 if($portadaPublic){
 $og_img = $portadaPublic->path;
 }

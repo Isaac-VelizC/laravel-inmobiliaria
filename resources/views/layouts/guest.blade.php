@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="{{ asset('imgs/logo.svg')}}" type="image/x-icon" />
     <link href="{{ asset('imgs/logo.svg')}}" rel="icon">
     <link href="{{ asset('imgs/logo.svg')}}" rel="apple-touch-icon">
-    <title>{{ config('app.name', 'Casaprime Realty') }}</title>
+    <title>{{ config('app.name', 'Soluciones Inmobiliarias') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">

@@ -2,7 +2,7 @@
 <aside class="sidebar-nav-wrapper">
     <div class="navbar-logo">
         <a href="{{ url('/') }}">
-            <img src="{{ asset('imgs/logo.png')}}" alt="logo" height="100" />
+            <img src="{{ asset('imgs/logo.png')}}" alt="logo"/>
         </a>
     </div>
     <nav class="sidebar-nav">
@@ -10,7 +10,7 @@
             <li class="nav-item">
                 <a href="{{ route('home') }}" class="active">
                     <span class="icon mdi mdi-home-outline"></span>
-                    <span class="text">Dashboard</span>
+                    <span class="text">Panel de Control</span>
                 </a>
             </li>
             <li class="nav-item nav-item-has-children">

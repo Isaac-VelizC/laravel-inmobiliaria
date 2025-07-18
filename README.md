@@ -1,4 +1,4 @@
-📌 🏠 CasaPrime Realty
+📌 🏠 Soluciones Inmobiliarias
 
 > Sistema integral de gestión inmobiliaria
 
@@ -43,53 +43,6 @@ La aplicación ofrece una solución integral para mostrar inmuebles, gestionar u
 
 ---
 
-## 📸 Galería de Imágenes
-
-Una muestra visual de la aplicación desde las vistas principales hasta el panel administrativo.
-
----
-
-### 🏠 Página Principal
-
-![Home](./public/screens/img-5.png)
-
----
-
-## 🛠️ Panel Administrativo
-
-### 📊 Dashboard del Administrador
-
-![Dashboard](./public/screens/img-8.png)
-
-### 🔐 Gestión de Roles y Permisos
-
-![Roles y Permisos](./public/screens/img-4.png)
-
-### 🏘️ Gestión de Propiedades
-
-![Lista de Propiedades](./public/screens/img-6.png)
-
-### 📝 Formulario para Crear Propiedad
-
-<p align="center">
-  <img src="./public/screens/img-10.png" width="45%" />
-  <img src="./public/screens/img-9.png" width="45%" />
-</p>
-
----
-
-## 👤 Vista del Cliente
-
-### 🏘️ Propiedades Disponibles
-
-![Propiedades Cliente](./public/screens/img-2.png)
-
-### 🔍 Detalles de la Propiedad
-
-![Detalle Propiedad](./public/screens/img-3.png)
-
----
-
 ## 🛠️ Tecnologías Utilizadas
 
 - ⚙️ **Framework**: Laravel 12  
@@ -128,5 +81,8 @@ php artisan key:generate
 # 7. Ejecuta las migraciones y seeders (opcional)
 php artisan migrate --seed
 
-# 8. Levanta el servidor local
+# 8. Ejecuta el Storage
+php artisan storage:link
+
+# 9. Levanta el servidor local
 php artisan serve

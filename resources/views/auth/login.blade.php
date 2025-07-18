@@ -5,7 +5,7 @@
     <div class="login-content">
         <div class="login-content_header">
             <span id="logo">
-                Casaprime Realty
+                Soluciones Inmobiliarias
             </span>
             <h2>Iniciar Sesión</h2>
         </div>

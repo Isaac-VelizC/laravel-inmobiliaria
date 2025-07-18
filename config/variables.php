@@ -1,14 +1,14 @@
 <?php
 // Variables
 return [
-  "creatorName" => "Casaprime Realty",
-  "creatorUrl" => "https://aisakveliz.netlify.app",
-  "templateName" => "Inmobiliarias",
-  "templateSuffix" => "Casaprime Realty",
+  "creatorName" => "Soluciones Inmobiliarias",
+  "creatorUrl" => "https://www.solucionesinmobiliarias.com", // Cambia por tu URL real
+  "templateName" => "Soluciones Inmobiliarias",
+  "templateSuffix" => "Inmobiliaria en [Ciudad]",
   "templateVersion" => "1.3.0",
   "templateFree" => false,
-  "templateDescription" => "Materialize – is the most developer friendly & highly customizable Admin Dashboard Template.",
-  "templateKeyword" => "dashboard, material, material design, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5",
+  "templateDescription" => "Sitio web profesional para compra, venta y alquiler de casas y departamentos en [Ciudad]. Encuentra las mejores oportunidades inmobiliarias con asesoría personalizada.",
+  "templateKeyword" => "inmobiliaria, casas en venta, departamentos en alquiler, bienes raíces, compra de inmuebles, alquiler, vender propiedad, [Ciudad]",
   "licenseUrl" => "https://themeforest.net/licenses/standard",
   "livePreview" => "https://pixinvent.com/materialize-bootstrap-laravel-admin-template/",
   "productPage" => "https://1.envato.market/materialize_admin",
