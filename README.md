@@ -1,26 +1,26 @@
-[⚠️ Suspicious Content] # 📌 🏠 CasaPrime Realty
+📌 🏠 CasaPrime Realty
 
 > Sistema integral de gestión inmobiliaria
 
-![Banner del Proyecto](./assets/banner.png) <!-- opcional -->
+<!--[Banner del Proyecto](./assets/banner.png)  opcional -->
 
 ---
 
 ## 🧭 Tabla de Contenidos
 
-- [📌 Título del Proyecto](#-título-del-proyecto)
+<!-- [📌 Título del Proyecto](#-título-del-proyecto)-->
 - [🧭 Tabla de Contenidos](#-tabla-de-contenidos)
 - [🎯 Descripción General](#-descripción-general)
 - [🚀 Características Principales](#-características-principales)
 - [📸 Galería de Imágenes](#-galería-de-imágenes)
 - [🛠️ Tecnologías Utilizadas](#️-tecnologías-utilizadas)
 - [🧪 Instalación y Uso](#-instalación-y-uso)
-<!-- [📁 Estructura del Proyecto](#-estructura-del-proyecto)
+<!-- [📄 Licencia](#-licencia)
+- [👨‍💻 Autor](#-autor)
+- [📁 Estructura del Proyecto](#-estructura-del-proyecto)
 - [🔐 Autenticación y Seguridad](#-autenticación-y-seguridad)
 - [📈 Roadmap / Funcionalidades Futuras](#-roadmap--funcionalidades-futuras)
 - [🤝 Contribuciones](#-contribuciones)-->
-- [📄 Licencia](#-licencia)
-- [👨‍💻 Autor](#-autor)
 
 ---
 
@@ -52,12 +52,6 @@ Una muestra visual de la aplicación desde las vistas principales hasta el panel
 ### 🏠 Página Principal
 
 ![Home](./public/screens/img-5.png)
-
----
-
-### 🔐 Inicio de Sesión
-
-![Login](./public/screens/img-7.png)
 
 ---
 
